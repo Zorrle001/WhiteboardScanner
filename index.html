@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Perspective.js demo</title>
+
+        <link
+            rel="manifest"
+            href="../manifest.json"
+            crossorigin="use-credentials"
+        />
+
+        <link
+            rel="stylesheet/less"
+            type="text/css"
+            href="../less/master.less"
+        />
+        <link
+            rel="stylesheet/less"
+            type="text/css"
+            href="../less/styles.less"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/less"></script>
+
+        <script
+            src="https://kit.fontawesome.com/452b801551.js"
+            crossorigin="anonymous"
+        ></script>
+
+        <script src="https://docs.opencv.org/4.7.0/opencv.js" async></script>
+        <!-- warning: loading OpenCV can take some time. Load asynchronously -->
+        <script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
+        <script src="../js/WhiteboardScanner.js" defer></script>
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+    </head>
+    <body>
+        <article id="cameraPage">
+            <section id="overlayRight">
+                <i class="fa-solid fa-camera-rotate" id="flipBtn"></i>
+                <div id="triggerBtn" id="triggerBtn"></div>
+                <i class="fa-solid fa-upload" id="uploadBtn"></i>
+                <input
+                    type="file"
+                    name="image-upload"
+                    accept="image/*"
+                    id="uploadInput"
+                    hidden
+                />
+            </section>
+            <section id="overlayLeft">
+                <i class="fa-solid fa-expand"></i>
+
+                <i class="fa-solid fa-arrows-up-down rotate"></i>
+                <i class="fa-solid fa-arrows-up-down"></i>
+                <input
+                    type="range"
+                    id="zoomRange"
+                    min="1"
+                    max="5"
+                    value="1"
+                    step="0.1"
+                />
+                <p id="zoomIndicator">1.0x</p>
+                <!-- <div>
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    <p>0.0x</p>
+                </div>
+                <div>
+                    <i class="fa-solid fa-arrows-to-dot"></i>
+                    <p>0.0x</p>
+                </div> -->
+            </section>
+            <!-- <img src="../rsc/firefox.jpg" alt="" /> -->
+            <section id="cameraContainer">
+                <video id="video"></video>
+                <canvas id="canvas"></canvas>
+                <!-- original video -->
+
+                <!-- highlighted video -->
+            </section>
+            <section id="zoomPopup">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <p id="zoomPopupIndicator">1.0x</p>
+            </section>
+        </article>
+        <article id="editorPage">
+            <nav id="topBar">
+                <i class="fa-solid fa-arrows-up-down rotate"></i>
+                <i class="fa-solid fa-arrows-up-down"></i>
+                <i class="fa-solid fa-crop-simple" id="extractBtn"></i>
+                <i class="fa-solid fa-xmark closeBtn"></i>
+            </nav>
+            <div id="canvasContainer">
+                <canvas id="result"></canvas>
+                <canvas id="cornerPointCanvas"></canvas>
+            </div>
+        </article>
+        <article id="exportPage">
+            <nav id="topBar">
+                <i class="fa-solid fa-arrow-left" id="backBtn"></i>
+                <i class="fa-solid fa-arrow-up-from-bracket" id="shareBtn"></i>
+                <i class="fa-solid fa-xmark closeBtn"></i>
+            </nav>
+            <div id="canvasContainer">
+                <canvas id="exportCanvas"></canvas>
+            </div>
+        </article>
+        <article id="galeryPage">
+            <nav className="topBar">
+                <button><i class="fa-solid fa-bars"></i></button>
+                <p>Galerie</p>
+                <button>Auswahl</button>
+            </nav>
+        </article>
+        <!-- <nav id="tabBar">
+            <div class="active">
+                <i class="fa-solid fa-camera"></i>
+                Kamera
+            </div>
+            !-- <div>
+                <i class="fa-solid fa-crop-simple"></i>
+                Editor
+            </div> --
+            <div>
+                <i class="fa-solid fa-image"></i>
+                Galerie
+            </div>
+        </nav> -->
+        <script>
+            const registerServiceWorker = async () => {
+                if ("serviceWorker" in navigator) {
+                    try {
+                        const registration =
+                            await navigator.serviceWorker.register(
+                                "../js/sw.js"
+                            );
+                        if (registration.installing) {
+                            console.log("Service worker installing");
+                        } else if (registration.waiting) {
+                            console.log("Service worker installed");
+                        } else if (registration.active) {
+                            console.log("Service worker active");
+                        }
+                    } catch (error) {
+                        console.error(
+                            `Service worker Registration failed with ${error}`
+                        );
+                    }
+                }
+            };
+            registerServiceWorker();
+        </script>
+    </body>
+</html>

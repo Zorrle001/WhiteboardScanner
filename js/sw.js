@@ -3,11 +3,11 @@ const CACHE_NAME = "WhiteboardScannerCache-v1";
 
 const FILES_TO_CACHE = [
     // LOCALS
-    "/html/WhiteboardScanner.html",
-    "/js/WhiteboardScanner.js",
-    "/less/master.less",
-    "/less/styles.less",
-    "/manifest.json",
+    "html/WhiteboardScanner.html",
+    "js/WhiteboardScanner.js",
+    "less/master.less",
+    "less/styles.less",
+    "manifest.json",
 
     // REMOTE
     "https://cdn.jsdelivr.net/npm/less",

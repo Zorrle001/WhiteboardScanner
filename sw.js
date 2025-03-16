@@ -1,16 +1,16 @@
-const CACHE_NAME = "WhiteboardScannerCache-v1";
+const CACHE_NAME = "whiteboard-scanner-cache-v1";
 //const FILES_TO_CACHE = ["/", "/index.html", "/styles.css", "/script.js"];
 
 const FILES_TO_CACHE = [
     // LOCALS
-    "html/WhiteboardScanner.html",
+    "index.html",
     "js/WhiteboardScanner.js",
     "less/master.less",
     "less/styles.less",
     "manifest.json",
 
     // REMOTE
-    "https://cdn.jsdelivr.net/npm/less",
+    /*"https://cdn.jsdelivr.net/npm/less",
     "https://kit.fontawesome.com/452b801551.js",
     "https://docs.opencv.org/4.7.0/opencv.js",
     "https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js",
@@ -20,7 +20,7 @@ const FILES_TO_CACHE = [
     "https://ka-f.fontawesome.com/releases/v6.7.2/css/free-v4-font-face.min.css?token=452b801551",
     "https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
     "https://fonts.gstatic.com/s/firasanscondensed/v10/wEOhEADFm8hSaQTFG18FErVhsC9x-tarUfbtrQ.woff2",
-    "https://ka-f.fontawesome.com/releases/v6.7.2/webfonts/free-fa-solid-900.woff2",
+    "https://ka-f.fontawesome.com/releases/v6.7.2/webfonts/free-fa-solid-900.woff2",*/
 ];
 
 /*
@@ -56,9 +56,11 @@ self.addEventListener("install", (event) => {
 
 // Fetch-Ereignis: Online bevorzugen, aber Cache als Fallback
 self.addEventListener("fetch", (event) => {
+    console.log("FETCH:", event.request.url);
     event.respondWith(
         fetch(event.request) // Versucht die Datei aus dem Netz zu holen
             .then((response) => {
+                console.log("Netzwerk-Response: " + event.request.url);
                 // Speichert die neue Datei im Cache und gibt sie zurück
                 return caches.open(CACHE_NAME).then((cache) => {
                     cache.put(event.request, response.clone());

@@ -7,20 +7,12 @@
 
         <link
             rel="manifest"
-            href="../manifest.json"
+            href="manifest.json"
             crossorigin="use-credentials"
         />
 
-        <link
-            rel="stylesheet/less"
-            type="text/css"
-            href="../less/master.less"
-        />
-        <link
-            rel="stylesheet/less"
-            type="text/css"
-            href="../less/styles.less"
-        />
+        <link rel="stylesheet/less" type="text/css" href="less/master.less" />
+        <link rel="stylesheet/less" type="text/css" href="less/styles.less" />
         <script src="https://cdn.jsdelivr.net/npm/less"></script>
 
         <script
@@ -31,7 +23,7 @@
         <script src="https://docs.opencv.org/4.7.0/opencv.js" async></script>
         <!-- warning: loading OpenCV can take some time. Load asynchronously -->
         <script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
-        <script src="../js/WhiteboardScanner.js" defer></script>
+        <script src="js/WhiteboardScanner.js" defer></script>
 
         <meta
             name="viewport"
@@ -136,9 +128,7 @@
                 if ("serviceWorker" in navigator) {
                     try {
                         const registration =
-                            await navigator.serviceWorker.register(
-                                "../js/sw.js"
-                            );
+                            await navigator.serviceWorker.register("js/sw.js");
                         if (registration.installing) {
                             console.log("Service worker installing");
                         } else if (registration.waiting) {

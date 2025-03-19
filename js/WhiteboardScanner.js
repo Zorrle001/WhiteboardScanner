@@ -26,6 +26,102 @@ var paperHeight = 2480;
 
 console.log("STARTED");
 
+const RATIO_TABLE = {
+    Auto: [-1, -1],
+    "1:1": [2480, 2480],
+    "4:3": [2480, 1860],
+    "16:9": [2480, 1395],
+    A4: [2480, 1754],
+};
+
+var ratio = localStorage.getItem("ratio")
+    ? localStorage.getItem("ratio")
+    : "Auto";
+
+var landscape = localStorage.getItem("landscape")
+    ? localStorage.getItem("landscape")
+    : "true";
+
+var cameraMirrorY = localStorage.getItem("cameraMirrorY")
+    ? localStorage.getItem("cameraMirrorY") === "true"
+    : true;
+
+var cameraMirrorX = localStorage.getItem("cameraMirrorX")
+    ? localStorage.getItem("cameraMirrorX") === "true"
+    : true;
+
+document
+    .querySelector(".tile[data-ratio-id='" + ratio + "']")
+    .classList.add("selected");
+
+for (const tile of document.querySelectorAll(".tile")) {
+    tile.onclick = () => {
+        const ratioID = tile.dataset.ratioId;
+        ratio = ratioID;
+        localStorage.setItem("ratio", ratio);
+
+        document.querySelector(".tile.selected").classList.remove("selected");
+        tile.classList.add("selected");
+    };
+}
+
+if (landscape == "true") {
+    document.getElementById("landscapeBtn").classList.add("selected");
+} else {
+    document.getElementById("portraitBtn").classList.add("selected");
+}
+
+document.getElementById("landscapeBtn").onclick = () => {
+    landscape = "true";
+    localStorage.setItem("landscape", true);
+    document.getElementById("portraitBtn").classList.remove("selected");
+    document.getElementById("landscapeBtn").classList.add("selected");
+};
+
+document.getElementById("portraitBtn").onclick = () => {
+    landscape = "false";
+    localStorage.setItem("landscape", false);
+    document.getElementById("portraitBtn").classList.add("selected");
+    document.getElementById("landscapeBtn").classList.remove("selected");
+};
+
+if (cameraMirrorY == true) {
+    document.getElementById("cameraMirrorYBtn").classList.add("selected");
+    document.getElementById("cameraContainer").classList.add("mirrorY");
+}
+if (cameraMirrorX == true) {
+    document.getElementById("cameraMirrorXBtn").classList.add("selected");
+    document.getElementById("cameraContainer").classList.add("mirrorX");
+}
+
+document.getElementById("cameraMirrorYBtn").onclick = function () {
+    if (cameraMirrorY == true) {
+        cameraMirrorY = false;
+        localStorage.setItem("cameraMirrorY", false);
+        this.classList.remove("selected");
+        document.getElementById("cameraContainer").classList.remove("mirrorY");
+    } else {
+        cameraMirrorY = true;
+        localStorage.setItem("cameraMirrorY", true);
+        this.classList.add("selected");
+        document.getElementById("cameraContainer").classList.add("mirrorY");
+    }
+};
+
+document.getElementById("cameraMirrorXBtn").onclick = function () {
+    if (cameraMirrorX == true) {
+        cameraMirrorX = false;
+        localStorage.setItem("cameraMirrorX", false);
+        this.classList.remove("selected");
+        document.getElementById("cameraContainer").classList.remove("mirrorX");
+    } else {
+        cameraMirrorX = true;
+        localStorage.setItem("cameraMirrorX", true);
+        this.classList.add("selected");
+        document.getElementById("cameraContainer").classList.add("mirrorX");
+    }
+};
+
 let front = false;
 document.getElementById("flipBtn").onclick = () => {
     console.log("FLIP");
@@ -123,10 +219,40 @@ zoomRange.oninput = () => {
 zoomRange.onchange = setZoom;
 
 document.getElementById("extractBtn").onclick = async () => {
+    let width;
+    let height;
+    if (ratio == "Auto") {
+        /*cornerPoints = {
+            topLeftCorner: { x: 0, y: 0 },
+            topRightCorner: { x: result.width, y: 0 },
+            bottomRightCorner: { x: result.width, y: result.height },
+            bottomLeftCorner: { x: 0, y: result.height },
+        };*/
+        let width1 =
+            cornerPoints.topRightCorner.x - cornerPoints.topLeftCorner.x;
+        let width2 =
+            cornerPoints.bottomRightCorner.x - cornerPoints.bottomLeftCorner.x;
+        let widthAvg = (width1 + width2) / 2;
+        let height1 =
+            cornerPoints.bottomLeftCorner.y - cornerPoints.topLeftCorner.y;
+        let height2 =
+            cornerPoints.bottomRightCorner.y - cornerPoints.topRightCorner.y;
+        let heightAvg = (height1 + height2) / 2;
+        width = widthAvg;
+        height = heightAvg;
+        console.log("AUTO", width, height, " -> RATIO: ", width / height);
+    } else if (landscape == "true") {
+        width = RATIO_TABLE[ratio][0];
+        height = RATIO_TABLE[ratio][1];
+    } else {
+        width = RATIO_TABLE[ratio][1];
+        height = RATIO_TABLE[ratio][0];
+    }
+
     const extractCanvas = scanner.extractPaper(
         result,
-        paperWidth,
-        paperHeight,
+        width,
+        height,
         cornerPoints
     );
 
@@ -182,6 +308,7 @@ var draggedPoint = null;
 var dragOffset = { x: 0, y: 0 };
 
 cornerPointCanvas.onpointerdown = (e) => {
+    e.preventDefault();
     const rect = cornerPointCanvas.getBoundingClientRect();
     const x =
         ((e.pageX - rect.left) / cornerPointCanvas.clientWidth) *
@@ -211,7 +338,7 @@ cornerPointCanvas.onpointerdown = (e) => {
 
 document.onpointermove = (e) => {
     if (draggedPoint == null) return;
-    console.log("MOVE", draggedPoint);
+    e.preventDefault();
 
     const rect = cornerPointCanvas.getBoundingClientRect();
     const x =
@@ -236,6 +363,9 @@ document.onpointermove = (e) => {
 };
 
 document.onpointerup = (e) => {
+    if (draggedPoint != null) {
+        e.preventDefault();
+    }
     draggedPoint = null;
 
     dragOffset = { x: 0, y: 0 };
@@ -434,7 +564,43 @@ function takePicture(video, canvas) {
     const context = canvas.getContext("2d");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+    if (cameraMirrorX == false && cameraMirrorY == false) {
+        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    } else if (cameraMirrorY == true && cameraMirrorX == false) {
+        context.save();
+        context.scale(-1, 1);
+        context.drawImage(
+            video,
+            0,
+            0,
+            video.videoWidth * -1,
+            video.videoHeight
+        );
+        context.restore();
+    } else if (cameraMirrorY == false && cameraMirrorX == true) {
+        context.save();
+        context.scale(1, -1);
+        context.drawImage(
+            video,
+            0,
+            0,
+            video.videoWidth,
+            video.videoHeight * -1
+        );
+        context.restore();
+    } else {
+        context.save();
+        context.scale(-1, -1);
+        context.drawImage(
+            video,
+            0,
+            0,
+            video.videoWidth * -1,
+            video.videoHeight * -1
+        );
+        context.restore();
+    }
 
     //window.alert(video.videoWidth + " x " + video.videoHeight);
 

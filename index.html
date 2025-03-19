@@ -47,8 +47,11 @@
             <section id="overlayLeft">
                 <i class="fa-solid fa-expand"></i>
 
-                <i class="fa-solid fa-arrows-up-down rotate"></i>
-                <i class="fa-solid fa-arrows-up-down"></i>
+                <i
+                    class="fa-solid fa-arrows-up-down rotate"
+                    id="cameraMirrorYBtn"
+                ></i>
+                <i class="fa-solid fa-arrows-up-down" id="cameraMirrorXBtn"></i>
                 <input
                     type="range"
                     id="zoomRange"
@@ -84,11 +87,15 @@
             <nav id="topBar">
                 <i class="fa-solid fa-arrows-up-down rotate"></i>
                 <i class="fa-solid fa-arrows-up-down"></i>
-                <i class="ratioBtn">1:1</i>
-                <i class="ratioBtn">4:3</i>
-                <i class="ratioBtn">16:9</i>
-                <i class="orientationBtn">L</i>
-                <i class="orientationBtn">P</i>
+                <div class="tileBox">
+                    <i class="ratioBtn tile" data-ratio-id="Auto">Auto</i>
+                    <i class="ratioBtn tile" data-ratio-id="1:1">1:1</i>
+                    <i class="ratioBtn tile" data-ratio-id="4:3">4:3</i>
+                    <i class="ratioBtn tile" data-ratio-id="16:9">16:9</i>
+                    <i class="ratioBtn tile" data-ratio-id="A4">A4</i>
+                </div>
+                <i class="fa-solid fa-mobile rotate-90" id="landscapeBtn"></i>
+                <i class="fa-solid fa-mobile" id="portraitBtn"></i>
                 <i class="fa-solid fa-crop-simple" id="extractBtn"></i>
                 <i class="fa-solid fa-xmark closeBtn"></i>
             </nav>

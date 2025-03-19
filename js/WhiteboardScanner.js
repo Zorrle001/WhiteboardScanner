@@ -44,11 +44,11 @@ var landscape = localStorage.getItem("landscape")
 
 var cameraMirrorY = localStorage.getItem("cameraMirrorY")
     ? localStorage.getItem("cameraMirrorY") === "true"
-    : true;
+    : false;
 
 var cameraMirrorX = localStorage.getItem("cameraMirrorX")
     ? localStorage.getItem("cameraMirrorX") === "true"
-    : true;
+    : false;
 
 document
     .querySelector(".tile[data-ratio-id='" + ratio + "']")

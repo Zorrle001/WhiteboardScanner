@@ -77,7 +77,6 @@ for (const closeBtn of document.querySelectorAll(".closeBtn")) {
     closeBtn.onclick = () => {
         document.body.classList.remove("showEditorPage");
         document.body.classList.remove("showExportPage");
-        startStream();
     };
 }
 

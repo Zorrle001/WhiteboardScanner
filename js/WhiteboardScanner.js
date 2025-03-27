@@ -178,11 +178,20 @@ document.getElementById("backBtn").onclick = () => {
     document.body.classList.remove("showExportPage");
 };
 
+// #### START PAGE ####
+document.getElementById("osCameraBtn").onclick = () => {
+    document.getElementById("osCameraInput").click();
+};
+
+document.getElementById("startPageUploadBtn").onclick = () => {
+    uploadInput.click();
+};
+
 uploadBtn.onclick = () => {
     uploadInput.click();
 };
 
-uploadInput.onchange = (e) => {
+const uploadImageFnc = (e) => {
     //window.alert(video.videoWidth + " x " + video.videoHeight);
 
     /*const data = canvas.toDataURL("image/png");
@@ -212,6 +221,9 @@ uploadInput.onchange = (e) => {
     reader.readAsDataURL(file);
 };
 
+uploadInput.onchange = uploadImageFnc;
+document.getElementById("osCameraInput").onchange = uploadImageFnc;
+
 zoomRange.oninput = () => {
     //document.getElementById("zoomIndicator").innerText = zoomRange.value + "x";
     //document.body.classList.add("showZoomPopup");
@@ -229,15 +241,19 @@ document.getElementById("extractBtn").onclick = async () => {
             bottomRightCorner: { x: result.width, y: result.height },
             bottomLeftCorner: { x: 0, y: result.height },
         };*/
-        let width1 =
-            cornerPoints.topRightCorner.x - cornerPoints.topLeftCorner.x;
-        let width2 =
-            cornerPoints.bottomRightCorner.x - cornerPoints.bottomLeftCorner.x;
+        let width1 = Math.abs(
+            cornerPoints.topRightCorner.x - cornerPoints.topLeftCorner.x
+        );
+        let width2 = Math.abs(
+            cornerPoints.bottomRightCorner.x - cornerPoints.bottomLeftCorner.x
+        );
         let widthAvg = (width1 + width2) / 2;
-        let height1 =
-            cornerPoints.bottomLeftCorner.y - cornerPoints.topLeftCorner.y;
-        let height2 =
-            cornerPoints.bottomRightCorner.y - cornerPoints.topRightCorner.y;
+        let height1 = Math.abs(
+            cornerPoints.bottomLeftCorner.y - cornerPoints.topLeftCorner.y
+        );
+        let height2 = Math.abs(
+            cornerPoints.bottomRightCorner.y - cornerPoints.topRightCorner.y
+        );
         let heightAvg = (height1 + height2) / 2;
         width = widthAvg;
         height = heightAvg;
@@ -303,6 +319,16 @@ document.getElementById("shareBtn").onclick = async () => {
         title: "Scanned Whiteboard",
         files: [file],
     });
+};
+
+document.getElementById("flipYBtn").onclick = () => {
+    console.log("FLIP Y");
+    flipResult(false, true);
+    console.log("FLIP Y DONE");
+};
+
+document.getElementById("flipXBtn").onclick = () => {
+    flipResult(true, false);
 };
 
 var draggedPoint = null;
@@ -482,6 +508,9 @@ function remToPx(rem) {
 startStream();
 
 function startStream() {
+    console.warn("CAMERA STREAM CURRENTLY DISABLED");
+    return;
+
     const constraints = {
         video: {
             width: 4032,
@@ -613,6 +642,33 @@ function takePicture(video, canvas) {
     stopStreamedVideo(video);
 }
 
+function flipResult(flipX, flipY) {
+    if (flipX == false && flipY == false) {
+        resultCtx.drawImage(result, 0, 0, result.width, result.height);
+    } else if (flipY == true && flipX == false) {
+        resultCtx.save();
+        resultCtx.scale(-1, 1);
+        resultCtx.drawImage(result, 0, 0, result.width * -1, result.height);
+        resultCtx.restore();
+    } else if (flipY == false && flipX == true) {
+        resultCtx.save();
+        resultCtx.scale(1, -1);
+        resultCtx.drawImage(result, 0, 0, result.width, result.height * -1);
+        resultCtx.restore();
+    } else {
+        resultCtx.save();
+        resultCtx.scale(-1, -1);
+        resultCtx.drawImage(
+            result,
+            0,
+            0,
+            result.width * -1,
+            result.height * -1
+        );
+        resultCtx.restore();
+    }
+}
+
 function stopStreamedVideo(videoElem) {
     const stream = videoElem.srcObject;
     if (stream == null) return;
@@ -630,11 +686,12 @@ function startEditorFunctions() {
     //const highlightedCanvas = scanner.highlightPaper(result);
     //document.body.appendChild(highlightedCanvas);
     //};
-    const contour = scanner.findPaperContour(cv.imread(result));
-    console.log("CONTOUR", contour);
+    //const contour = scanner.findPaperContour(cv.imread(result));
+    //console.log("CONTOUR", contour);
 
-    if (contour == null) {
-        console.warn("No paper found");
+    const noStoredCornerPoints = localStorage.getItem("noStoredCornerPoints");
+
+    if (noStoredCornerPoints != null || cornerPoints == null) {
         cornerPoints = {
             topLeftCorner: { x: 0, y: 0 },
             topRightCorner: { x: result.width, y: 0 },
@@ -642,7 +699,7 @@ function startEditorFunctions() {
             bottomLeftCorner: { x: 0, y: result.height },
         };
     } else {
-        cornerPoints = scanner.getCornerPoints(contour);
+        //cornerPoints = scanner.getCornerPoints(contour);
     }
 
     console.log("CPs", cornerPoints);

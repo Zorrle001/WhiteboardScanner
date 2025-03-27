@@ -31,7 +31,25 @@
         />
     </head>
     <body>
-        <article id="cameraPage">
+        <article id="startPage">
+            <i class="fa-solid fa-photo-film" id="startIcon"></i>
+            <button id="osCameraBtn">
+                <i class="fa-solid fa-camera"></i>
+                OS-Kamera öffnen
+            </button>
+            <input
+                type="file"
+                id="osCameraInput"
+                capture="environment"
+                accept="image/*"
+                hidden
+            />
+            <button class="secondary" id="startPageUploadBtn">
+                <i class="fa-solid fa-upload" id="uploadBtn"></i>
+                Hochladen
+            </button>
+        </article>
+        <article id="cameraPage" style="display: none">
             <section id="overlayRight">
                 <i class="fa-solid fa-camera-rotate" id="flipBtn"></i>
                 <div id="triggerBtn" id="triggerBtn"></div>
@@ -70,13 +88,9 @@
                     <p>0.0x</p>
                 </div> -->
             </section>
-            <!-- <img src="../rsc/firefox.jpg" alt="" /> -->
             <section id="cameraContainer">
                 <video id="video"></video>
                 <canvas id="canvas"></canvas>
-                <!-- original video -->
-
-                <!-- highlighted video -->
             </section>
             <section id="zoomPopup">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -85,8 +99,8 @@
         </article>
         <article id="editorPage">
             <nav id="topBar">
-                <i class="fa-solid fa-arrows-up-down rotate"></i>
-                <i class="fa-solid fa-arrows-up-down"></i>
+                <i class="fa-solid fa-arrows-up-down rotate" id="flipYBtn"></i>
+                <i class="fa-solid fa-arrows-up-down" id="flipXBtn"></i>
                 <div class="tileBox">
                     <i class="ratioBtn tile" data-ratio-id="Auto">Auto</i>
                     <i class="ratioBtn tile" data-ratio-id="1:1">1:1</i>

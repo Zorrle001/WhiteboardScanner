@@ -16,27 +16,38 @@ html {
 }
 
 body {
-    background-color: @background;
+    background-color: black;
     overflow: hidden;
 
     &.showEditorPage {
         #startPage {
-            display: none;
+            opacity: 0;
+            scale: 1.2;
+            transition-delay: 0.25s;
         }
         #editorPage {
             display: block;
+            opacity: 1;
+            scale: 1;
+            visibility: visible;
         }
     }
 
     &.showExportPage {
         #startPage {
-            display: none;
+            opacity: 0;
+            scale: 1.3;
         }
         #editorPage {
-            display: none;
+            opacity: 0;
+            scale: 1;
+            visibility: visible;
+            transition-delay: 0.25s;
         }
         #exportPage {
-            display: block;
+            opacity: 1;
+            scale: 1;
+            visibility: visible;
         }
     }
 
@@ -47,9 +58,16 @@ body {
     }
 
     > article {
-        position: relative;
+        position: absolute;
+        top: 0px;
+        left: 0px;
         height: calc(100% - @tabBarHeight);
         width: 100%;
+
+        transition: scale 0.25s ease-in-out, opacity 0.25s ease-in-out,
+            visibility 0.25s ease-in-out;
+        transform-origin: center center;
+        transition-behavior: allow-discrete;
 
         &:not(:first-of-type) {
             display: none;
@@ -63,6 +81,9 @@ body {
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
+
+            opacity: 1;
+            scale: 1;
 
             #startIcon {
                 font-size: 7rem;
@@ -107,7 +128,12 @@ body {
 
         &#editorPage,
         &#exportPage {
-            display: none;
+            //display: none;
+            display: block;
+            opacity: 0;
+            scale: 0.8;
+            visibility: hidden;
+
             background-color: black;
 
             //padding: max(5rem, 10cqw);

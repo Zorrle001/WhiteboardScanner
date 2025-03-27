@@ -262,6 +262,10 @@ document.onpointerup = (e) => {
     dragOffset = { x: 0, y: 0 };
 };
 
+document.onresize = () => {
+    drawCornerPointsFrame();
+};
+
 function clamp(number, min, max) {
     return Math.min(Math.max(number, min), max);
 }
@@ -315,6 +319,8 @@ function startEditorFunctions() {
 }
 
 function drawCornerPointsFrame() {
+    if (cornerPoints == null) return;
+
     cornerPointCanvas.width = result.width;
     cornerPointCanvas.height = result.height;
     const adjustFactor =

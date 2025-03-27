@@ -262,7 +262,7 @@ document.onpointerup = (e) => {
     dragOffset = { x: 0, y: 0 };
 };
 
-document.onresize = () => {
+window.onresize = () => {
     drawCornerPointsFrame();
 };
 

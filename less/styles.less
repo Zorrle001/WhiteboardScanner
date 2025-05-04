@@ -51,6 +51,14 @@ body {
         }
     }
 
+    &.showPushSharePage {
+        #pushSharePage {
+            opacity: 1;
+            scale: 1;
+            visibility: visible;
+        }
+    }
+
     &.showZoomPopup {
         #zoomPopup {
             visibility: visible !important;
@@ -155,7 +163,8 @@ body {
         }
 
         &#editorPage,
-        &#exportPage {
+        &#exportPage,
+        &#pushSharePage {
             //display: none;
             display: block;
             opacity: 0;
@@ -236,7 +245,7 @@ body {
                         rotate: -90deg;
                     }
 
-                    &#shareBtn,
+                    &#pushShareBtn,
                     &#extractBtn {
                         margin-left: auto;
                     }

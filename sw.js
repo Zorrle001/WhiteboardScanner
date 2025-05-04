@@ -107,3 +107,25 @@ self.addEventListener("push", (event) => {
         })
     );
 });
+
+self.addEventListener("notificationclick", (event) => {
+    event.preventDefault();
+
+    let distUrl = self.location.origin + "#showPushSharePage";
+    console.log("Notification clicked Event:", event);
+
+    event.notification.close();
+
+    event.waitUntil(
+        self.clients
+            .matchAll({ type: "window", includeUncontrolled: true })
+            .then((clients) => {
+                if (clients.length > 0) {
+                    const client = clients[0];
+                    client.navigate(distUrl);
+                    client.focus();
+                    return;
+                } else event.waitUntil(self.clients.openWindow(distUrl));
+            })
+    );
+});

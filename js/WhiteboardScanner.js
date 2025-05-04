@@ -85,8 +85,6 @@ document.querySelector("#pushShareCloseBtn").onclick = () => {
     document.body.classList.remove("showPushSharePage");
 };
 
-document.querySelector();
-
 document.getElementById("backBtn").onclick = () => {
     document.body.classList.remove("showExportPage");
 };

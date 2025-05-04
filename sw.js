@@ -102,6 +102,7 @@ self.addEventListener("push", (event) => {
     event.waitUntil(
         self.registration.showNotification("WhiteboardScanner", {
             body: payload,
+            icon: "icons/PushShare.png",
         })
     );
 });

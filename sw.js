@@ -85,15 +85,18 @@ self.addEventListener("fetch", (event) => {
 // Aktivierungs-Ereignis: Alten Cache löschen, wenn Version geändert wird
 self.addEventListener("activate", (event) => {
     event.waitUntil(
-        caches.keys().then((keys) => {
-            return Promise.all(
-                keys.map((key) => {
-                    if (key !== CACHE_NAME) {
-                        return caches.delete(key);
-                    }
-                })
-            );
-        })
+        Promise.all([
+            caches.keys().then((keys) => {
+                return Promise.all(
+                    keys.map((key) => {
+                        if (key !== CACHE_NAME) {
+                            return caches.delete(key);
+                        }
+                    })
+                );
+            }),
+            clients.claim(),
+        ])
     );
 });
 

@@ -120,7 +120,7 @@ self.addEventListener("notificationclick", (event) => {
 
     event.notification.close();
 
-    event.waitUntil(
+    /* event.waitUntil(
         self.clients
             .matchAll({ type: "window", includeUncontrolled: true })
             .then((clients) => {
@@ -130,6 +130,26 @@ self.addEventListener("notificationclick", (event) => {
                     client.focus();
                     return;
                 } else event.waitUntil(self.clients.openWindow(distUrl));
+            })
+    ); */
+
+    event.waitUntil(
+        self.clients
+            .matchAll({ type: "window", includeUncontrolled: true })
+            .then((clientsArr) => {
+                for (const client of clientsArr) {
+                    // Try focusing an existing tab
+                    if (client.url.includes(self.location.origin)) {
+                        client.focus();
+                        return;
+                    }
+                }
+                // Else, open new tab
+                return self.clients.openWindow(distUrl);
+            })
+            .catch(() => {
+                // Fallback for iOS issues
+                return self.clients.openWindow(distUrl);
             })
     );
 });

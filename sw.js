@@ -103,6 +103,7 @@ self.addEventListener("push", (event) => {
         self.registration.showNotification("WhiteboardScanner", {
             body: payload,
             icon: "icons/PushShare.png",
+            lang: "de-DE",
         })
     );
 });

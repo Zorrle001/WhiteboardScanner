@@ -28,17 +28,27 @@ pushSharingCheckbox.addEventListener("change", function () {
                 alert(
                     "Push sharing enabled. You will now receive notifications."
                 );
+                if (!window.subscription) {
+                    alert("Subscription does not exist!");
+                } else {
+                    fetch("https://nas.zorrle001.dev/send_notification", {
+                        method: "post",
+                        headers: {
+                            "Content-type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            subscription: window.subscription,
+                            payload: "Neues Gerät für Push-Share registriert",
+                            ttl: 60 * 3,
+                        }),
+                    });
+                }
+            } else {
+                pushSharingCheckbox.checked = false;
 
-                fetch("https://nas.zorrle001.dev/send_notification", {
-                    method: "post",
-                    headers: {
-                        "Content-type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        payload: "Test",
-                        ttl: 60 * 3,
-                    }),
-                });
+                alert(
+                    "Push share could not be activated. Please check your settings."
+                );
             }
             console.log(result);
         });

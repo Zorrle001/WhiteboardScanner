@@ -313,6 +313,8 @@
             </div>
         </nav> -->
         <script>
+            window.subscribtion = null;
+
             const registerServiceWorker = async () => {
                 if ("serviceWorker" in navigator) {
                     try {
@@ -361,6 +363,7 @@
                             body: JSON.stringify({ subscription }),
                         });
 
+                        window.subscribtion = subscription;
                         console.log(
                             "Push notification subscription registered"
                         );

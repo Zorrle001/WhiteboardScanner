@@ -374,11 +374,22 @@
             registerServiceWorker();
 
             function urlBase64ToUint8Array(base64String) {
+                // Add necessary padding for base64
                 const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
                 const base64 = (base64String + padding)
-                    .replace(/\\-/g, "+")
-                    .replace(/_/g, "/");
-                return Buffer.from(base64, "base64");
+                    .replace(/-/g, "+") // Replace URL-safe `-` with `+`
+                    .replace(/_/g, "/"); // Replace URL-safe `_` with `/`
+
+                // Decode base64 string using atob (browser method)
+                const binaryString = atob(base64);
+
+                // Create a Uint8Array from the binary string
+                const uint8Array = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    uint8Array[i] = binaryString.charCodeAt(i);
+                }
+
+                return uint8Array;
             }
         </script>
     </body>

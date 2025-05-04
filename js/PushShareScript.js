@@ -29,16 +29,14 @@ pushSharingCheckbox.addEventListener("change", function () {
                     "Push sharing enabled. You will now receive notifications."
                 );
 
-                fetch("https://nas.zorrle001.dev/sendNotification", {
+                fetch("https://nas.zorrle001.dev/send_notification", {
                     method: "post",
                     headers: {
                         "Content-type": "application/json",
                     },
                     body: JSON.stringify({
-                        subscription,
                         payload: "Test",
-                        delay: 15,
-                        ttl: 60,
+                        ttl: 60 * 3,
                     }),
                 });
             }

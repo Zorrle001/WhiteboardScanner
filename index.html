@@ -26,7 +26,7 @@
         <!-- warning: loading OpenCV can take some time. Load asynchronously -->
         <script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
         <script src="js/WhiteboardScanner.js" defer></script>
-        <script src="js/PushShareScript.js" defer></script>
+        <script src="js/PushShareScript.js"></script>
 
         <meta
             name="viewport"
@@ -408,7 +408,7 @@
                     }
                 }
 
-                loadActivePushShareSettings();
+                loadPushShare();
             };
             registerServiceWorker();
 

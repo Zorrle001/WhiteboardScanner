@@ -4,7 +4,7 @@
     "display": "standalone",
     "theme_color": "#404040",
     "background_color": "black",
-    "start_url": "/WhiteboardScanner/",
+    "start_url": "/",
     "icons": [
         {
             "src": "icons/manifest-icon-192.maskable.png",

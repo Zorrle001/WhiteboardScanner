@@ -140,15 +140,19 @@ self.addEventListener("notificationclick", (event) => {
                 for (const client of clientsArr) {
                     // Try focusing an existing tab
                     if (client.url.includes(self.location.origin)) {
+                        client.navigate(distUrl);
                         client.focus();
+                        console.log("Client navigate & focus to:", distUrl);
                         return;
                     }
                 }
                 // Else, open new tab
+                console.log("Client open Window non catch:", distUrl);
                 return self.clients.openWindow(distUrl);
             })
             .catch(() => {
                 // Fallback for iOS issues
+                console.log("Client open Window WITH catch:", distUrl);
                 return self.clients.openWindow(distUrl);
             })
     );

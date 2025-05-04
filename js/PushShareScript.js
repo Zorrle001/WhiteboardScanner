@@ -28,6 +28,7 @@ pushSharingCheckbox.addEventListener("change", function () {
                 alert(
                     "Push sharing enabled. You will now receive notifications."
                 );
+                console.log("Subscription", window.subscription);
                 if (!window.subscription) {
                     alert("Subscription does not exist!");
                 } else {

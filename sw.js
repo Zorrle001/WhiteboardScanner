@@ -57,6 +57,14 @@ self.addEventListener("install", (event) => {
 // Fetch-Ereignis: Online bevorzugen, aber Cache als Fallback
 self.addEventListener("fetch", (event) => {
     console.log("FETCH:", event.request.url);
+
+    if (event.request.method === "POST") {
+        // POST-Anfragen nicht cachen, direkt aus dem Netz antworten
+        console.log("POST-Anfrage, wird nicht gecacht:", event.request.url);
+        event.respondWith(fetch(event.request));
+        return; // Keine weitere Verarbeitung notwendig, POST wird direkt aus dem Netz geholt
+    }
+
     event.respondWith(
         fetch(event.request) // Versucht die Datei aus dem Netz zu holen
             .then((response) => {

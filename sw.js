@@ -143,7 +143,7 @@ self.addEventListener("notificationclick", (event) => {
         self.clients
             .matchAll({ type: "window", includeUncontrolled: true })
             .then((clientsArr) => {
-                for (const client of clientsArr) {
+                /* for (const client of clientsArr) {
                     // Try focusing an existing tab
                     if (client.url.includes(self.location.origin)) {
                         client.navigate(distUrl);
@@ -151,7 +151,7 @@ self.addEventListener("notificationclick", (event) => {
                         console.log("Client navigate & focus to:", distUrl);
                         return;
                     }
-                }
+                } */
                 // Else, open new tab
                 console.log("Client open Window non catch:", distUrl);
                 return self.clients.openWindow(distUrl);

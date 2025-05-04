@@ -104,10 +104,13 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("push", (event) => {
-    const payload = event.data?.text() ?? "no payload";
+    const payload = event.data?.json() ?? {
+        title: "WhiteboardScanner",
+        body: "Notification payload not found",
+    };
     event.waitUntil(
-        self.registration.showNotification("WhiteboardScanner", {
-            body: payload,
+        self.registration.showNotification(payload.title, {
+            body: payload.body,
             icon: "icons/PushShare.png",
             badge: "icons/PushShare.png",
             lang: "de-DE",

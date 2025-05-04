@@ -1,6 +1,7 @@
 const scanner = new jscanify();
 const result = document.getElementById("result");
 const exportCanvas = document.getElementById("exportCanvas");
+const pushShareCanvas = document.getElementById("pushShareCanvas");
 
 const resultCtx = result.getContext("2d");
 const exportCanvasCtx = exportCanvas.getContext("2d");
@@ -79,6 +80,12 @@ for (const closeBtn of document.querySelectorAll(".closeBtn")) {
         document.body.classList.remove("showExportPage");
     };
 }
+
+document.querySelector("#pushShareCloseBtn").onclick = () => {
+    document.body.classList.remove("showPushSharePage");
+};
+
+document.querySelector();
 
 document.getElementById("backBtn").onclick = () => {
     document.body.classList.remove("showExportPage");
@@ -172,6 +179,47 @@ document.getElementById("extractBtn").onclick = async () => {
 
 document.getElementById("shareBtn").onclick = async () => {
     const data = exportCanvas.toDataURL("image/png");
+    // Convert base64 to Blob
+    const response = await fetch(data);
+    const blob = await response.blob();
+
+    let date = new Date().toISOString().slice(0, 19).replace("T", " ");
+    let fileName = "Scanned Whiteboard " + date + ".png";
+
+    // Create a File object
+    const file = new File([blob], fileName, { type: "image/png" });
+    await navigator.share({
+        files: [file],
+    });
+};
+
+// SEND IMG TO SERVER
+document.getElementById("pushShareBtn").onclick = async () => {
+    const base64 = exportCanvas.toDataURL("image/png");
+    // Convert base64 to Blob
+
+    console.log("SUBSCRIPTION", window.subscription);
+    if (!window.subscription) {
+        alert(
+            "WhiteboardScanner\n\nFehler: Subscription existiert nicht! Bitte Push Sharing aktivieren."
+        );
+        return;
+    }
+
+    fetch("https://nas.zorrle001.dev/global_push_share", {
+        method: "post",
+        headers: {
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+            subscription: window.subscription,
+            base64: base64,
+        }),
+    });
+};
+
+document.getElementById("pushShareShareBtn").onclick = async () => {
+    const data = pushShareCanvas.toDataURL("image/png");
     // Convert base64 to Blob
     const response = await fetch(data);
     const blob = await response.blob();

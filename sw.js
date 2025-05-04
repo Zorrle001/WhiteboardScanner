@@ -115,7 +115,7 @@ self.addEventListener("notificationclick", (event) => {
     let distUrl =
         self.location.origin +
         "?pushShareID=" +
-        encodeURIComponent(event.notification.payload);
+        encodeURIComponent(event.notification.body);
     console.log("Notification clicked Event:", event);
 
     event.notification.close();

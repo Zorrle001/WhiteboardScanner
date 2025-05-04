@@ -48,9 +48,12 @@ https://127.0.0.1:5500/manifest.json
 // Installations-Ereignis: Dateien in den Cache speichern
 self.addEventListener("install", (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(FILES_TO_CACHE);
-        })
+        Promise.all([
+            caches.open(CACHE_NAME).then((cache) => {
+                return cache.addAll(FILES_TO_CACHE);
+            }),
+            self.skipWaiting(), // Sofort aktivieren, ohne auf die nächste Seite zu warten
+        ])
     );
 });
 

@@ -45,7 +45,7 @@ pushSharingCheckbox.addEventListener("change", function () {
                 console.log("Subscription", window.subscription);
                 if (!window.subscription) {
                     alert(
-                        "WhiteboardScanner\n\n\nFehler: Subscription existiert nicht!"
+                        "WhiteboardScanner\n\nFehler: Subscription existiert nicht!"
                     );
                     pushSharingCheckbox.checked = false;
                     return;
@@ -75,13 +75,13 @@ pushSharingCheckbox.addEventListener("change", function () {
                 });
 
                 alert(
-                    "WhiteboardScanner\n\n\nFehler: Push Share wurde aktiviert. Du erhälst nun Push-Benachrichtigungen."
+                    "WhiteboardScanner\n\nPush Share wurde aktiviert. Du erhälst nun Push-Benachrichtigungen."
                 );
             } else {
                 pushSharingCheckbox.checked = false;
 
                 alert(
-                    "WhiteboardScanner\n\n\nFehler: Push Share konnte nicht aktiviert werden. Bitte erlaube die Benachrichtigungen in den Einstellungen deines Browsers."
+                    "WhiteboardScanner\n\nFehler: Push Share konnte nicht aktiviert werden. Bitte erlaube die Benachrichtigungen in den Einstellungen deines Browsers."
                 );
             }
             console.log(result);
@@ -99,7 +99,7 @@ pushSharingCheckbox.addEventListener("change", function () {
         });
 
         alert(
-            "WhiteboardScanner\n\n\nPush Share wurde deaktiviert. Du erhälst nun keine Push-Benachrichtigungen mehr."
+            "WhiteboardScanner\n\nPush Share wurde deaktiviert. Du erhälst nun keine Push-Benachrichtigungen mehr."
         );
     }
 });

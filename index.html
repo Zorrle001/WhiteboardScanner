@@ -26,6 +26,7 @@
         <!-- warning: loading OpenCV can take some time. Load asynchronously -->
         <script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
         <script src="js/WhiteboardScanner.js" defer></script>
+        <script src="js/PushShareScript.js" defer></script>
 
         <meta
             name="viewport"
@@ -252,6 +253,11 @@
                 id="uploadInput"
                 hidden
             />
+            <section id="pushShareSection">
+                <i class="fa-solid fa-users"></i>
+                <p>Push Share Funktion aktivieren</p>
+                <input type="checkbox" id="pushSharingCheckbox" />
+            </section>
         </article>
         <article id="editorPage">
             <nav id="topBar">
@@ -319,6 +325,45 @@
                         } else if (registration.active) {
                             console.log("Service worker active");
                         }
+
+                        // SETUP Push Share Notification Subscription
+                        let subscription =
+                            await registration.pushManager.getSubscription();
+
+                        if (subscription) {
+                            console.log(
+                                "Already subscribed to push notifications"
+                            );
+                        } else {
+                            const response = await fetch(
+                                "https://nas.zorrle001.dev/vapid_public_key"
+                            );
+                            const vapidPublicKey = await response.text();
+                            const convertedVapidKey =
+                                urlBase64ToUint8Array(vapidPublicKey);
+                            subscription =
+                                await registration.pushManager.subscribe({
+                                    userVisibleOnly: true,
+                                    applicationServerKey: convertedVapidKey,
+                                });
+
+                            console.log(
+                                "Subscribed to push notifications",
+                                subscription
+                            );
+                        }
+
+                        fetch("https://nas.zorrle001.dev/register", {
+                            method: "post",
+                            headers: {
+                                "Content-type": "application/json",
+                            },
+                            body: JSON.stringify({ subscription }),
+                        });
+
+                        console.log(
+                            "Push notification subscription registered"
+                        );
                     } catch (error) {
                         console.error(
                             `Service worker Registration failed with ${error}`

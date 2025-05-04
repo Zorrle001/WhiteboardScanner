@@ -103,6 +103,7 @@ self.addEventListener("push", (event) => {
         self.registration.showNotification("WhiteboardScanner", {
             body: payload,
             icon: "icons/PushShare.png",
+            badge: "icons/PushShare.png",
             lang: "de-DE",
         })
     );
@@ -111,7 +112,10 @@ self.addEventListener("push", (event) => {
 self.addEventListener("notificationclick", (event) => {
     event.preventDefault();
 
-    let distUrl = self.location.origin + "#showPushSharePage";
+    let distUrl =
+        self.location.origin +
+        "?pushShareID=" +
+        encodeURIComponent(event.notification.payload);
     console.log("Notification clicked Event:", event);
 
     event.notification.close();

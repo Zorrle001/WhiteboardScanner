@@ -36,6 +36,7 @@
         <link rel="apple-touch-icon" href="icons/apple-icon-180.png" />
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
 
         <link
             rel="apple-touch-startup-image"
@@ -254,6 +255,7 @@
                 hidden
             />
             <section id="pushShareSection">
+                <h2 id="pushShareIDText"></h2>
                 <i class="fa-solid fa-users"></i>
                 <p>Push Share Funktion aktivieren</p>
                 <input type="checkbox" id="pushSharingCheckbox" />
@@ -329,6 +331,24 @@
         <script>
             window.subscription = null;
 
+            const params = new URLSearchParams(window.location.search);
+            const pushShareID = params.get("pushShareID");
+
+            if (pushShareID) {
+                console.log("Push Share ID:", pushShareID);
+                document.body.classList.add("showPushSharePage");
+                document.getElementById("pushShareIDText").innerText =
+                    "Push Share ID: " + pushShareID;
+
+                // optional: Parameter entfernen aus der URL
+                params.delete("pushShareID");
+                history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname + "?" + params.toString()
+                );
+            }
+
             const registerServiceWorker = async () => {
                 if ("serviceWorker" in navigator) {
                     try {
@@ -387,6 +407,8 @@
                         );
                     }
                 }
+
+                loadActivePushShareSettings();
             };
             registerServiceWorker();
 

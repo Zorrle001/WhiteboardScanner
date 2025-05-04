@@ -1,26 +1,28 @@
 const pushSharingCheckbox = document.querySelector("#pushSharingCheckbox");
 
-const pushSharingEnabled =
-    localStorage.getItem("pushSharingCheckbox") === "true";
+function loadActivePushShareSettings() {
+    const pushSharingEnabled =
+        localStorage.getItem("pushSharingCheckbox") === "true";
 
-if (pushSharingEnabled) {
-    if (!window.subscription) {
-        console.error(
-            "Push Share Subscription konnte nicht aktiviert werden. Subscription existiert nicht!"
-        );
-    } else {
-        fetch("https://nas.zorrle001.dev/activation", {
-            method: "post",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-                subscription: window.subscription,
-                active: true,
-            }),
-        });
-        pushSharingCheckbox.checked = true;
-        console.log("Push Share Subscription wurde aktiviert.");
+    if (pushSharingEnabled) {
+        if (!window.subscription) {
+            console.error(
+                "Push Share Subscription konnte nicht aktiviert werden. Subscription existiert nicht!"
+            );
+        } else {
+            fetch("https://nas.zorrle001.dev/activation", {
+                method: "post",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    subscription: window.subscription,
+                    active: true,
+                }),
+            });
+            pushSharingCheckbox.checked = true;
+            console.log("Push Share Subscription wurde aktiviert.");
+        }
     }
 }
 

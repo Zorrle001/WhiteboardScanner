@@ -4,7 +4,24 @@ const pushSharingEnabled =
     localStorage.getItem("pushSharingCheckbox") === "true";
 
 if (pushSharingEnabled) {
-    pushSharingCheckbox.checked = true;
+    if (!window.subscription) {
+        console.error(
+            "Push Share Subscription konnte nicht aktiviert werden. Subscription existiert nicht!"
+        );
+    } else {
+        fetch("https://nas.zorrle001.dev/activation", {
+            method: "post",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                subscription: window.subscription,
+                active: true,
+            }),
+        });
+        pushSharingCheckbox.checked = true;
+        console.log("Push Share Subscription wurde aktiviert.");
+    }
 }
 
 pushSharingCheckbox.addEventListener("change", function () {
@@ -25,36 +42,65 @@ pushSharingCheckbox.addEventListener("change", function () {
             if (result === "granted") {
                 //randomNotification();
 
-                alert(
-                    "Push sharing enabled. You will now receive notifications."
-                );
                 console.log("Subscription", window.subscription);
                 if (!window.subscription) {
-                    alert("Subscription does not exist!");
-                } else {
-                    fetch("https://nas.zorrle001.dev/send_notification", {
-                        method: "post",
-                        headers: {
-                            "Content-type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            subscription: window.subscription,
-                            payload: "Neues Gerät für Push-Share registriert",
-                            ttl: 60 * 3,
-                        }),
-                    });
+                    alert(
+                        "WhiteboardScanner\n\n\nFehler: Subscription existiert nicht!"
+                    );
+                    pushSharingCheckbox.checked = false;
+                    return;
                 }
+
+                fetch("https://nas.zorrle001.dev/activation", {
+                    method: "post",
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        subscription: window.subscription,
+                        active: true,
+                    }),
+                });
+
+                fetch("https://nas.zorrle001.dev/send_notification", {
+                    method: "post",
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        subscription: window.subscription,
+                        payload: "Neues Gerät für Push-Share registriert",
+                        ttl: 60 * 3,
+                    }),
+                });
+
+                alert(
+                    "WhiteboardScanner\n\n\nFehler: Push Share wurde aktiviert. Du erhälst nun Push-Benachrichtigungen."
+                );
             } else {
                 pushSharingCheckbox.checked = false;
 
                 alert(
-                    "Push share could not be activated. Please check your settings."
+                    "WhiteboardScanner\n\n\nFehler: Push Share konnte nicht aktiviert werden. Bitte erlaube die Benachrichtigungen in den Einstellungen deines Browsers."
                 );
             }
             console.log(result);
         });
     } else {
-        alert("Push sharing disabled. You will not receive notifications.");
+        fetch("https://nas.zorrle001.dev/activation", {
+            method: "post",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                subscription: window.subscription,
+                active: false,
+            }),
+        });
+
+        alert(
+            "WhiteboardScanner\n\n\nPush Share wurde deaktiviert. Du erhälst nun keine Push-Benachrichtigungen mehr."
+        );
     }
 });
 

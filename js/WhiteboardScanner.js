@@ -181,7 +181,14 @@ document.getElementById("shareBtn").onclick = async () => {
     const response = await fetch(data);
     const blob = await response.blob();
 
-    let date = new Date().toISOString().slice(0, 19).replace("T", " ");
+    /* let date = new Date().toISOString().slice(0, 19).replace("T", " ");
+    let fileName = "Scanned Whiteboard " + date + ".png"; */
+
+    let date = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ")
+        .replace(/:/g, "-");
     let fileName = "Scanned Whiteboard " + date + ".png";
 
     // Create a File object

@@ -305,6 +305,7 @@
             </nav>
             <div id="canvasContainer">
                 <canvas id="pushShareCanvas"></canvas>
+                <img id="pushShareImage" />
             </div>
         </article>
         <article id="galeryPage">
@@ -338,7 +339,14 @@
                 console.log("Push Share ID:", pushShareID);
                 document.body.classList.add("showPushSharePage");
                 document.getElementById("pushShareIDText").innerText =
-                    "Push Share ID: " + pushShareID;
+                    pushShareID;
+
+                document.getElementById("pushShareImage").src = "";
+                document.getElementById(
+                    "pushShareImage"
+                ).src = `https://nas.zorrle001.dev/image/${encodeURIComponent(
+                    pushShareID
+                )}`;
 
                 // optional: Parameter entfernen aus der URL
                 params.delete("pushShareID");

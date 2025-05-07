@@ -232,7 +232,9 @@ document.getElementById("pushShareBtn").onclick = async () => {
     var successNotification = new Notification("Push-Share", {
         body: "Datei wurde erfolgreich geteilt",
     });
-    successNotification.close();
+    setTimeout(() => {
+        successNotification.close();
+    }, 2000);
 };
 
 document.getElementById("pushShareShareBtn").onclick = async () => {

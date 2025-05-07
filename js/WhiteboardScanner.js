@@ -207,7 +207,7 @@ document.getElementById("pushShareBtn").onclick = () => {
     document.getElementById("pushShareBtn").classList.add("disabled");
     document.getElementById("pushShareBtn").offsetHeight; // Trigger reflow
 
-    requestAnimationFrame(async () => {
+    setTimeout(async () => {
         const base64 = exportCanvas.toDataURL("image/png", 1);
         // Convert base64 to Blob
 
@@ -237,7 +237,7 @@ document.getElementById("pushShareBtn").onclick = () => {
         setTimeout(() => {
             successNotification.close();
         }, 2000);
-    });
+    }, 0);
 };
 
 document.getElementById("pushShareShareBtn").onclick = async () => {

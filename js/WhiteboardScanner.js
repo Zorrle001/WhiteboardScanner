@@ -204,9 +204,7 @@ document.getElementById("pushShareBtn").onclick = async () => {
     if (document.getElementById("pushShareBtn").classList.contains("disabled"))
         return;
 
-    var uploadingNotification = new Notification("Push-Share", {
-        body: "Datei wird hochgeladen...",
-    });
+    document.getElementById("pushShareBtn").classList.add("disabled");
 
     const base64 = exportCanvas.toDataURL("image/png", 1);
     // Convert base64 to Blob
@@ -230,15 +228,10 @@ document.getElementById("pushShareBtn").onclick = async () => {
         }),
     });
 
-    setTimeout(() => {
-        uploadingNotification.close();
-        var successNotification = new Notification("Push-Share", {
-            body: "Datei wurde erfolgreich geteilt",
-        });
-        setTimeout(() => {
-            successNotification.close();
-        }, 3000);
-    }, 1000); // Warten, bis iOS den Wechsel verarbeiten kann
+    document.getElementById("pushShareBtn").classList.remove("disabled");
+    var successNotification = new Notification("Push-Share", {
+        body: "Datei wurde erfolgreich geteilt",
+    });
 };
 
 document.getElementById("pushShareShareBtn").onclick = async () => {

@@ -212,7 +212,11 @@ document.getElementById("pushShareBtn").onclick = async () => {
         return;
     }
 
-    fetch("https://nas.zorrle001.dev/global_push_share", {
+    var uploadingNotification = new Notification("Push-Share", {
+        body: "Datei wird hochgeladen...",
+    });
+
+    await fetch("https://nas.zorrle001.dev/global_push_share", {
         method: "post",
         headers: {
             "Content-type": "application/json",
@@ -222,6 +226,14 @@ document.getElementById("pushShareBtn").onclick = async () => {
             base64: base64,
         }),
     });
+
+    uploadingNotification.close();
+    var successNotification = new Notification("Push-Share", {
+        body: "Datei wurde erfolgreich geteilt",
+    });
+    setTimeout(function () {
+        successNotification.close();
+    }, 1000);
 };
 
 document.getElementById("pushShareShareBtn").onclick = async () => {

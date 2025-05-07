@@ -177,23 +177,23 @@ document.getElementById("extractBtn").onclick = async () => {
 };
 
 document.getElementById("shareBtn").onclick = async () => {
-    const data = exportCanvas.toDataURL("image/jpg", 1);
+    const data = exportCanvas.toDataURL("image/png");
     // Convert base64 to Blob
     const response = await fetch(data);
     const blob = await response.blob();
 
     /* let date = new Date().toISOString().slice(0, 19).replace("T", " ");
-    let fileName = "Scanned Whiteboard " + date + ".jpg"; */
+    let fileName = "Scanned Whiteboard " + date + ".png"; */
 
     let date = new Date()
         .toISOString()
         .slice(0, 19)
         .replace("T", " ")
         .replace(/:/g, "-");
-    let fileName = "Scanned Whiteboard " + date + ".jpg";
+    let fileName = "Scanned Whiteboard " + date + ".png";
 
     // Create a File object
-    const file = new File([blob], fileName, { type: "image/jpg" });
+    const file = new File([blob], fileName, { type: "image/png" });
     await navigator.share({
         files: [file],
     });
@@ -201,7 +201,7 @@ document.getElementById("shareBtn").onclick = async () => {
 
 // SEND IMG TO SERVER
 document.getElementById("pushShareBtn").onclick = async () => {
-    const base64 = exportCanvas.toDataURL("image/jpg", 1);
+    const base64 = exportCanvas.toDataURL("image/png", 1);
     // Convert base64 to Blob
 
     console.log("SUBSCRIPTION", window.subscription);
@@ -236,16 +236,16 @@ document.getElementById("pushShareShareBtn").onclick = async () => {
             pushShareImage.naturalWidth,
             pushShareImage.naturalHeight
         );
-    const data = pushShareCanvas.toDataURL("image/jpg", 1);
+    const data = pushShareCanvas.toDataURL("image/png");
     // Convert base64 to Blob
     const response = await fetch(data);
     const blob = await response.blob();
 
     let date = new Date().toISOString().slice(0, 19).replace("T", " ");
-    let fileName = "Scanned Whiteboard " + date + ".jpg";
+    let fileName = "Scanned Whiteboard " + date + ".png";
 
     // Create a File object
-    const file = new File([blob], fileName, { type: "image/jpg" });
+    const file = new File([blob], fileName, { type: "image/png" });
     await navigator.share({
         files: [file],
     });

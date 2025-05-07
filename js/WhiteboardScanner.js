@@ -204,6 +204,10 @@ document.getElementById("pushShareBtn").onclick = async () => {
     if (document.getElementById("pushShareBtn").classList.contains("disabled"))
         return;
 
+    var uploadingNotification = new Notification("Push-Share", {
+        body: "Datei wird hochgeladen...",
+    });
+
     const base64 = exportCanvas.toDataURL("image/png", 1);
     // Convert base64 to Blob
 
@@ -214,10 +218,6 @@ document.getElementById("pushShareBtn").onclick = async () => {
         );
         return;
     }
-
-    var uploadingNotification = new Notification("Push-Share", {
-        body: "Datei wird hochgeladen...",
-    });
 
     await fetch("https://nas.zorrle001.dev/global_push_share", {
         method: "post",

@@ -230,12 +230,14 @@ document.getElementById("pushShareBtn").onclick = async () => {
         }),
     });
 
-    uploadingNotification.close();
     setTimeout(() => {
         var successNotification = new Notification("Push-Share", {
             body: "Datei wurde erfolgreich geteilt",
         });
-        setTimeout(() => successNotification.close(), 2000);
+        setTimeout(() => {
+            uploadingNotification.close();
+            successNotification.close();
+        }, 2000);
     }, 500); // Warten, bis iOS den Wechsel verarbeiten kann
 };
 

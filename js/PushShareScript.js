@@ -22,6 +22,9 @@ function loadPushShare() {
             });
             pushSharingCheckbox.checked = true;
             console.log("Push Share Subscription wurde aktiviert.");
+            document
+                .getElementById("pushShareBtn")
+                .classList.remove("disabled");
         }
     }
 
@@ -78,6 +81,10 @@ function loadPushShare() {
                         }),
                     });
 
+                    document
+                        .getElementById("pushShareBtn")
+                        .classList.remove("disabled");
+
                     alert(
                         "WhiteboardScanner\n\nPush Share wurde aktiviert. Du erhälst nun Push-Benachrichtigungen."
                     );
@@ -101,6 +108,8 @@ function loadPushShare() {
                     active: false,
                 }),
             });
+
+            document.getElementById("pushShareBtn").classList.add("disabled");
 
             alert(
                 "WhiteboardScanner\n\nPush Share wurde deaktiviert. Du erhälst nun keine Push-Benachrichtigungen mehr."

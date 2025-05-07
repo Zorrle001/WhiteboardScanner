@@ -201,6 +201,9 @@ document.getElementById("shareBtn").onclick = async () => {
 
 // SEND IMG TO SERVER
 document.getElementById("pushShareBtn").onclick = async () => {
+    if (document.getElementById("pushShareBtn").classList.contains("disabled"))
+        return;
+
     const base64 = exportCanvas.toDataURL("image/png", 1);
     // Convert base64 to Blob
 

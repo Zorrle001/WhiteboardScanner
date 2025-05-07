@@ -2,6 +2,7 @@ const scanner = new jscanify();
 const result = document.getElementById("result");
 const exportCanvas = document.getElementById("exportCanvas");
 const pushShareCanvas = document.getElementById("pushShareCanvas");
+const pushShareImage = document.getElementById("pushShareImage");
 
 const resultCtx = result.getContext("2d");
 const exportCanvasCtx = exportCanvas.getContext("2d");
@@ -176,23 +177,23 @@ document.getElementById("extractBtn").onclick = async () => {
 };
 
 document.getElementById("shareBtn").onclick = async () => {
-    const data = exportCanvas.toDataURL("image/png");
+    const data = exportCanvas.toDataURL("image/jpg", 1);
     // Convert base64 to Blob
     const response = await fetch(data);
     const blob = await response.blob();
 
     /* let date = new Date().toISOString().slice(0, 19).replace("T", " ");
-    let fileName = "Scanned Whiteboard " + date + ".png"; */
+    let fileName = "Scanned Whiteboard " + date + ".jpg"; */
 
     let date = new Date()
         .toISOString()
         .slice(0, 19)
         .replace("T", " ")
         .replace(/:/g, "-");
-    let fileName = "Scanned Whiteboard " + date + ".png";
+    let fileName = "Scanned Whiteboard " + date + ".jpg";
 
     // Create a File object
-    const file = new File([blob], fileName, { type: "image/png" });
+    const file = new File([blob], fileName, { type: "image/jpg" });
     await navigator.share({
         files: [file],
     });
@@ -200,7 +201,7 @@ document.getElementById("shareBtn").onclick = async () => {
 
 // SEND IMG TO SERVER
 document.getElementById("pushShareBtn").onclick = async () => {
-    const base64 = exportCanvas.toDataURL("image/png");
+    const base64 = exportCanvas.toDataURL("image/jpg", 1);
     // Convert base64 to Blob
 
     console.log("SUBSCRIPTION", window.subscription);
@@ -224,16 +225,27 @@ document.getElementById("pushShareBtn").onclick = async () => {
 };
 
 document.getElementById("pushShareShareBtn").onclick = async () => {
-    const data = pushShareCanvas.toDataURL("image/png");
+    pushShareCanvas.width = pushShareImage.naturalWidth;
+    pushShareCanvas.height = pushShareImage.naturalHeight;
+    pushShareCanvas
+        .getContext("2d")
+        .drawImage(
+            pushShareImage,
+            0,
+            0,
+            pushShareImage.naturalWidth,
+            pushShareImage.naturalHeight
+        );
+    const data = pushShareCanvas.toDataURL("image/jpg", 1);
     // Convert base64 to Blob
     const response = await fetch(data);
     const blob = await response.blob();
 
     let date = new Date().toISOString().slice(0, 19).replace("T", " ");
-    let fileName = "Scanned Whiteboard " + date + ".png";
+    let fileName = "Scanned Whiteboard " + date + ".jpg";
 
     // Create a File object
-    const file = new File([blob], fileName, { type: "image/png" });
+    const file = new File([blob], fileName, { type: "image/jpg" });
     await navigator.share({
         files: [file],
     });

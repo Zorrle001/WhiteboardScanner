@@ -231,14 +231,14 @@ document.getElementById("pushShareBtn").onclick = async () => {
     });
 
     setTimeout(() => {
+        uploadingNotification.close();
         var successNotification = new Notification("Push-Share", {
             body: "Datei wurde erfolgreich geteilt",
         });
         setTimeout(() => {
-            uploadingNotification.close();
             successNotification.close();
-        }, 2000);
-    }, 500); // Warten, bis iOS den Wechsel verarbeiten kann
+        }, 3000);
+    }, 1000); // Warten, bis iOS den Wechsel verarbeiten kann
 };
 
 document.getElementById("pushShareShareBtn").onclick = async () => {

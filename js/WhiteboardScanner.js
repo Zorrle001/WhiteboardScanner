@@ -200,41 +200,44 @@ document.getElementById("shareBtn").onclick = async () => {
 };
 
 // SEND IMG TO SERVER
-document.getElementById("pushShareBtn").onclick = async () => {
+document.getElementById("pushShareBtn").onclick = () => {
     if (document.getElementById("pushShareBtn").classList.contains("disabled"))
         return;
 
     document.getElementById("pushShareBtn").classList.add("disabled");
+    document.getElementById("pushShareBtn").offsetHeight; // Trigger reflow
 
-    const base64 = exportCanvas.toDataURL("image/png", 1);
-    // Convert base64 to Blob
+    requestAnimationFrame(async () => {
+        const base64 = exportCanvas.toDataURL("image/png", 1);
+        // Convert base64 to Blob
 
-    console.log("SUBSCRIPTION", window.subscription);
-    if (!window.subscription) {
-        alert(
-            "WhiteboardScanner\n\nFehler: Subscription existiert nicht! Bitte Push Sharing aktivieren."
-        );
-        return;
-    }
+        console.log("SUBSCRIPTION", window.subscription);
+        if (!window.subscription) {
+            alert(
+                "WhiteboardScanner\n\nFehler: Subscription existiert nicht! Bitte Push Sharing aktivieren."
+            );
+            return;
+        }
 
-    await fetch("https://nas.zorrle001.dev/global_push_share", {
-        method: "post",
-        headers: {
-            "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-            subscription: window.subscription,
-            base64: base64,
-        }),
+        await fetch("https://nas.zorrle001.dev/global_push_share", {
+            method: "post",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                subscription: window.subscription,
+                base64: base64,
+            }),
+        });
+
+        document.getElementById("pushShareBtn").classList.remove("disabled");
+        var successNotification = new Notification("Push-Share", {
+            body: "Datei wurde erfolgreich geteilt",
+        });
+        setTimeout(() => {
+            successNotification.close();
+        }, 2000);
     });
-
-    document.getElementById("pushShareBtn").classList.remove("disabled");
-    var successNotification = new Notification("Push-Share", {
-        body: "Datei wurde erfolgreich geteilt",
-    });
-    setTimeout(() => {
-        successNotification.close();
-    }, 2000);
 };
 
 document.getElementById("pushShareShareBtn").onclick = async () => {

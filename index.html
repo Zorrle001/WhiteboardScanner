@@ -371,11 +371,15 @@
             );
 
             if (!window.navigator.onLine) {
-                document.body.classList.add("offline");
-                document.getElementById("historyBtn").classList.add("disabled");
-                document
-                    .getElementById("pushShareBtn")
-                    .classList.add("disabled");
+                window.addEventListener("DOMContentLoaded", function () {
+                    document.body.classList.add("offline");
+                    document
+                        .getElementById("historyBtn")
+                        .classList.add("disabled");
+                    document
+                        .getElementById("pushShareBtn")
+                        .classList.add("disabled");
+                });
             }
 
             window.addEventListener("online", () => {

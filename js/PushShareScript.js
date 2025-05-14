@@ -22,9 +22,15 @@ function loadPushShare() {
             });
             pushSharingCheckbox.checked = true;
             console.log("Push Share Subscription wurde aktiviert.");
-            document
-                .getElementById("pushShareBtn")
-                .classList.remove("disabled");
+            if (
+                !document
+                    .getElementById("pushShareBtn")
+                    .classList.contains("loading")
+            ) {
+                document
+                    .getElementById("pushShareBtn")
+                    .classList.remove("disabled");
+            }
         }
     }
 

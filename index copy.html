@@ -247,11 +247,6 @@
                 <i class="fa-solid fa-upload" id="uploadBtn"></i>
                 Hochladen
             </button>
-            <hr />
-            <button class="secondary" id="historyBtn">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                Verlauf
-            </button>
             <input
                 type="file"
                 name="image-upload"
@@ -261,12 +256,8 @@
             />
             <section id="pushShareSection">
                 <i class="fa-solid fa-users"></i>
-                <p>Push-Share Funktion aktivieren</p>
+                <p>Push Share Funktion aktivieren</p>
                 <input type="checkbox" id="pushSharingCheckbox" />
-                <section id="offline">
-                    <i class="fa-solid fa-globe"></i>
-                    <p>Offline</p>
-                </section>
             </section>
         </article>
         <article id="editorPage">
@@ -372,30 +363,24 @@
 
             if (!window.navigator.onLine) {
                 document.body.classList.add("offline");
-                document.getElementById("historyBtn").classList.add("disabled");
-                document
-                    .getElementById("pushShareBtn")
-                    .classList.add("disabled");
             }
 
             window.addEventListener("online", () => {
                 console.log("Became online");
                 document.body.classList.remove("offline");
-                document
-                    .getElementById("historyBtn")
-                    .classList.remove("disabled");
-                document
-                    .getElementById("pushShareBtn")
-                    .classList.remove("disabled");
             });
             window.addEventListener("offline", () => {
                 console.log("Became offline");
                 document.body.classList.add("offline");
-                document.getElementById("historyBtn").classList.add("disabled");
-                document
-                    .getElementById("pushShareBtn")
-                    .classList.add("disabled");
             });
+
+            document
+                .getElementById("statusCheck")
+                .addEventListener("click", () =>
+                    console.log(
+                        "window.navigator.onLine is " + window.navigator.onLine
+                    )
+                );
 
             const registerServiceWorker = async () => {
                 if ("serviceWorker" in navigator) {

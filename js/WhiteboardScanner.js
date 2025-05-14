@@ -205,6 +205,7 @@ document.getElementById("pushShareBtn").onclick = () => {
         return;
 
     document.getElementById("pushShareBtn").classList.add("disabled");
+    document.getElementById("pushShareBtn").classList.add("loading");
     document.getElementById("pushShareBtn").offsetHeight; // Trigger reflow
 
     setTimeout(async () => {
@@ -231,6 +232,8 @@ document.getElementById("pushShareBtn").onclick = () => {
         });
 
         document.getElementById("pushShareBtn").classList.remove("disabled");
+        document.getElementById("pushShareBtn").classList.remove("loading");
+
         var successNotification = new Notification("Push-Share", {
             body: "Datei wurde erfolgreich geteilt",
         });

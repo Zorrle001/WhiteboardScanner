@@ -22,11 +22,7 @@ function loadPushShare() {
             });
             pushSharingCheckbox.checked = true;
             console.log("Push Share Subscription wurde aktiviert.");
-            if (
-                !document
-                    .getElementById("pushShareBtn")
-                    .classList.contains("loading")
-            ) {
+            if (!document.body.classList.contains("offline")) {
                 document
                     .getElementById("pushShareBtn")
                     .classList.remove("disabled");

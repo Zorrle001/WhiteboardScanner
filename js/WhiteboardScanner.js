@@ -606,3 +606,39 @@ function checkCameraCapabilities() {
         console.warn("This camera does not support zoom");
     }
 }
+
+document.getElementById("historyBtn").onclick = () => {
+    fetch("https://nas.zorrle001.dev/last_global_push_share_file_name")
+        .catch((err) => {
+            console.error("Error fetching last file name:", err);
+            window.alert(
+                "WhiteboardScanner\n\nFehler beim Abrufen der letzten Datei: " +
+                    err
+            );
+            throw err;
+        })
+        .then((response) => {
+            if (response.status == 200) {
+                return response.text();
+            } else {
+                console.error("Error fetching last file name:", response);
+                window.alert(
+                    "WhiteboardScanner\n\nFehler beim Abrufen der letzten Datei: " +
+                        response.statusText
+                );
+                throw new Error(response.statusText);
+            }
+        })
+        .then((pushShareID) => {
+            console.log("Push Share ID:", pushShareID);
+            document.body.classList.add("showPushSharePage");
+            document.getElementById("pushShareIDText").innerText = pushShareID;
+
+            document.getElementById("pushShareImage").src = "";
+            document.getElementById(
+                "pushShareImage"
+            ).src = `https://nas.zorrle001.dev/image/${encodeURIComponent(
+                pushShareID
+            )}`;
+        });
+};

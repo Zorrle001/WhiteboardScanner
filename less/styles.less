@@ -15,7 +15,7 @@ html {
     overflow: hidden;
 }
 
-body {
+html body {
     background-color: black;
     overflow: hidden;
 
@@ -68,12 +68,19 @@ body {
         }
     }
 
-    &.showCornerZoomCanvas #cornerZoomCanvas {
-        scale: 1 !important;
-        opacity: 1 !important;
+    &.showCornerZoomCanvas #cornerZoomWrapper {
+        //scale: 1 !important;
+        //opacity: 1 !important;
+
+        width: 4rem !important;
+        height: 4rem !important;
+
+        &::after {
+            opacity: 0 !important;
+        }
     }
 
-    >article {
+    > article {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -108,7 +115,7 @@ body {
                 margin-bottom: 3rem;
             }
 
-            >button {
+            > button {
                 all: unset;
                 position: relative;
                 font-family: inherit;
@@ -143,7 +150,7 @@ body {
                 }
             }
 
-            >hr {
+            > hr {
                 width: 7.5rem;
                 height: 1px;
                 background-color: rgba(128, 128, 128, 0.5);
@@ -193,7 +200,7 @@ body {
                     gap: 0.5rem;
                     font-size: 1.5rem;
 
-                    >i {
+                    > i {
                         color: red;
                     }
                 }
@@ -227,8 +234,8 @@ body {
                 align-items: center;
                 justify-content: center;
 
-                >canvas,
-                >img {
+                > canvas,
+                > img {
                     position: absolute;
                     top: auto;
                     bottom: auto;
@@ -247,16 +254,26 @@ body {
                     }
                 }
 
-                #cornerZoomCanvas {
+                #cornerZoomWrapper {
                     --left: 0px;
                     --right: 0px;
-                    position: fixed;
-                    top: 0px;
-                    left: 0px;
-                    width: 4rem;
-                    height: 4rem;
-                    border: 0.2rem solid orange;
+                    position: absolute;
+                    top: -100vw;
+                    left: -100vh;
+                    /*width: calc(0.5rem + 3 * 0.2rem);
+                    height: calc(0.5rem + 3 * 0.2rem);*/
+                    /* width: calc(2 * 0.5rem + 0.2rem);
+                    height: calc(2 * 0.5rem + 0.2rem); */
+
+                    width: 19px;
+                    height: 19px;
+                    padding: 0.2rem;
                     background-color: orange;
+
+                    // WIDTH 1.1rem + 2 * 0.2rem (border) -> 1.5rem
+                    //border: 0.2rem solid orange;
+                    //background-color: orange;
+                    //background-color: black;
                     border-radius: 100%;
 
                     pointer-events: none;
@@ -265,34 +282,45 @@ body {
                     // margin-top: calc(-2rem - 0.2rem);
 
                     transform: translate(-50%, -50%);
-                    scale: 0.25;
-                    opacity: 0;
-                    transition: scale 0.25s ease-out, opacity 0.25s ease-out;
+                    //scale: 0.25;
+                    opacity: 1;
+                    transition: width 0.25s ease-out, height 0.25s ease-out,
+                        opacity 0.25s ease-out;
                     transform-origin: top left;
 
+                    overflow: hidden;
 
-
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        width: 2px;
-                        height: 100%;
-                        background-color: gray;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                    }
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    //display: block;
 
                     &::after {
                         content: "";
-                        position: absolute;
                         width: 100%;
-                        height: 2px;
-                        background-color: gray;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
+                        height: 100%;
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
 
+                        opacity: 1;
+                        transition: opacity 0.25s ease-in-out;
+
+                        background-color: rgba(255, 166, 0, 0.25);
+                    }
+
+                    > canvas {
+                        position: relative;
+                        /*top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);*/
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        border-radius: 0px;
+                        background-color: black;
+                        border-radius: 100%;
+                        flex-grow: 1;
                     }
                 }
             }
@@ -391,7 +419,7 @@ body {
 
                     cursor: pointer;
 
-                    >i {
+                    > i {
                         font-style: normal;
                         height: 100%;
                         width: 3.5rem;
@@ -419,7 +447,7 @@ body {
         justify-content: center;
         align-items: center;
 
-        >div {
+        > div {
             position: relative;
             width: calc(100% / @tabCount);
             height: 100%;
@@ -450,7 +478,7 @@ body {
         #pushShareSection {
             grid-template-columns: 1fr !important;
 
-            >*:not(#offline) {
+            > *:not(#offline) {
                 display: none !important;
             }
 

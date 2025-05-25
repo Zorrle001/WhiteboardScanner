@@ -83,6 +83,11 @@ for (const closeBtn of document.querySelectorAll(".closeBtn")) {
     closeBtn.onclick = () => {
         document.body.classList.remove("showEditorPage");
         document.body.classList.remove("showExportPage");
+        document.body.classList.remove("showCornerZoomCanvas");
+
+        const cornerZoomWrapper = document.getElementById("cornerZoomWrapper");
+        cornerZoomWrapper.style.setProperty("top", "-100vw");
+        cornerZoomWrapper.style.setProperty("left", "-100vh");
     };
 }
 
@@ -123,6 +128,8 @@ const uploadImageFnc = (e) => {
             document.body.classList.add("showEditorPage");
 
             startEditorFunctions();
+
+            e.target.value = "";
         };
     };
     reader.readAsDataURL(file);
@@ -283,6 +290,7 @@ document.getElementById("flipXBtn").onclick = () => {
 };
 
 var draggedPoint = null;
+var storedDraggedPoint = null;
 var dragOffset = { x: 0, y: 0 };
 
 cornerPointCanvas.onpointerdown = (e) => {
@@ -312,6 +320,7 @@ cornerPointCanvas.onpointerdown = (e) => {
 
     console.log("CLOSEST", closestPoint);
     draggedPoint = closestPoint;
+    storedDraggedPoint = closestPoint;
 
     document.body.classList.add("showCornerZoomCanvas");
 
@@ -342,7 +351,6 @@ document.onpointermove = (e) => {
     );
 
     drawCornerPointsFrame();
-    drawCornerZoomCanvas(cornerPoints[draggedPoint]);
 };
 
 document.onpointerup = (e) => {
@@ -358,21 +366,32 @@ document.onpointerup = (e) => {
 
 function drawCornerZoomCanvas(point) {
     const cornerZoomCanvas = document.getElementById("cornerZoomCanvas");
+    const cornerZoomWrapper = document.getElementById("cornerZoomWrapper");
     const cornerZoomCtx = cornerZoomCanvas.getContext("2d");
 
     const { x, y } = point;
-    console.log("drawCornerZoomCanvas", x, y, point);
+    //console.log("drawCornerZoomCanvas", x, y, point);
 
-    const zoomSize = 16;
+    // FORMEL: (radius - lineWidth / 2)
+    // INNER CIRCLE
+    const circleWidth = 6.5;
+    // REAL PIXEL TO IMG PIXEL
+    const adjustFactor =
+        cornerPointCanvas.width /
+        parseFloat(getComputedStyle(cornerPointCanvas)["width"]);
+
+    const zoomSize = circleWidth * adjustFactor;
+
+    //const zoomSize = 16;
     cornerZoomCanvas.width = 2 * zoomSize;
     cornerZoomCanvas.height = 2 * zoomSize;
     // ADD ADJUST VALUE -> RESOLUTION FIXED SIZE
 
     const imageData = resultCtx.getImageData(
-        x - zoomSize,
-        y - zoomSize,
-        2 * zoomSize + 1,
-        2 * zoomSize + 1
+        x - zoomSize + 1,
+        y - zoomSize + 1,
+        2 * zoomSize,
+        2 * zoomSize
     );
 
     const vpX = (x / cornerPointCanvas.width) * cornerPointCanvas.clientWidth;
@@ -387,17 +406,20 @@ function drawCornerZoomCanvas(point) {
 	console.log("DOWN", x, y);*/
 
     const rect = cornerPointCanvas.getBoundingClientRect();
+    const canvasContainerRect = document
+        .getElementById("canvasContainer")
+        .getBoundingClientRect();
 
-    const yFromTop = vpY + rect.top;
-    const xFromLeft = vpX + rect.left;
+    const yFromTop = vpY + rect.top - canvasContainerRect.top;
+    const xFromLeft = vpX + rect.left - canvasContainerRect.left;
 
-    console.log(yFromTop, xFromLeft);
+    //console.log(yFromTop, xFromLeft);
 
-    cornerZoomCanvas.style.setProperty(
+    cornerZoomWrapper.style.setProperty(
         "top",
         yFromTop /* - zoomSize - remToPx(0.2) */ + "px"
     );
-    cornerZoomCanvas.style.setProperty(
+    cornerZoomWrapper.style.setProperty(
         "left",
         xFromLeft /* - zoomSize - remToPx(0.2) */ + "px"
     );
@@ -561,6 +583,10 @@ function drawCornerPointsFrame() {
         cornerPointCircleCtx.fillStyle = "rgba(255, 166, 0, 0.25)";
         cornerPointCircleCtx.fill();
         cornerPointCircleCtx.stroke();
+    }
+
+    if (storedDraggedPoint) {
+        drawCornerZoomCanvas(cornerPoints[storedDraggedPoint]);
     }
 }
 

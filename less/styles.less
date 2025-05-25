@@ -25,6 +25,7 @@ body {
             scale: 1.2;
             transition-delay: 0.25s;
         }
+
         #editorPage {
             display: block;
             opacity: 1;
@@ -38,12 +39,14 @@ body {
             opacity: 0;
             scale: 1.3;
         }
+
         #editorPage {
             opacity: 0;
             scale: 1;
             visibility: visible;
             transition-delay: 0.25s;
         }
+
         #exportPage {
             opacity: 1;
             scale: 1;
@@ -65,7 +68,12 @@ body {
         }
     }
 
-    > article {
+    &.showCornerZoomCanvas #cornerZoomCanvas {
+        scale: 1 !important;
+        opacity: 1 !important;
+    }
+
+    >article {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -100,7 +108,7 @@ body {
                 margin-bottom: 3rem;
             }
 
-            > button {
+            >button {
                 all: unset;
                 position: relative;
                 font-family: inherit;
@@ -135,7 +143,7 @@ body {
                 }
             }
 
-            > hr {
+            >hr {
                 width: 7.5rem;
                 height: 1px;
                 background-color: rgba(128, 128, 128, 0.5);
@@ -185,7 +193,7 @@ body {
                     gap: 0.5rem;
                     font-size: 1.5rem;
 
-                    > i {
+                    >i {
                         color: red;
                     }
                 }
@@ -219,8 +227,8 @@ body {
                 align-items: center;
                 justify-content: center;
 
-                > canvas,
-                > img {
+                >canvas,
+                >img {
                     position: absolute;
                     top: auto;
                     bottom: auto;
@@ -232,6 +240,59 @@ body {
 
                     &#pushShareCanvas {
                         display: none;
+                    }
+
+                    &#cornerPointCanvas {
+                        z-index: 5 !important;
+                    }
+                }
+
+                #cornerZoomCanvas {
+                    --left: 0px;
+                    --right: 0px;
+                    position: fixed;
+                    top: 0px;
+                    left: 0px;
+                    width: 4rem;
+                    height: 4rem;
+                    border: 0.2rem solid orange;
+                    background-color: orange;
+                    border-radius: 100%;
+
+                    pointer-events: none;
+
+                    //margin-left: calc(-2rem - 0.2rem);
+                    // margin-top: calc(-2rem - 0.2rem);
+
+                    transform: translate(-50%, -50%);
+                    scale: 0.25;
+                    opacity: 0;
+                    transition: scale 0.25s ease-out, opacity 0.25s ease-out;
+                    transform-origin: top left;
+
+
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 2px;
+                        height: 100%;
+                        background-color: gray;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        width: 100%;
+                        height: 2px;
+                        background-color: gray;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+
                     }
                 }
             }
@@ -304,10 +365,12 @@ body {
 
                             animation: rotate 1s linear infinite;
                             transform-origin: center center;
+
                             @keyframes rotate {
                                 0% {
                                     transform: rotate(0deg);
                                 }
+
                                 100% {
                                     transform: rotate(360deg);
                                 }
@@ -328,7 +391,7 @@ body {
 
                     cursor: pointer;
 
-                    > i {
+                    >i {
                         font-style: normal;
                         height: 100%;
                         width: 3.5rem;
@@ -356,7 +419,7 @@ body {
         justify-content: center;
         align-items: center;
 
-        > div {
+        >div {
             position: relative;
             width: calc(100% / @tabCount);
             height: 100%;
@@ -387,9 +450,10 @@ body {
         #pushShareSection {
             grid-template-columns: 1fr !important;
 
-            > *:not(#offline) {
+            >*:not(#offline) {
                 display: none !important;
             }
+
             #offline {
                 display: flex !important;
             }

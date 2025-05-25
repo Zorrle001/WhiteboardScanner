@@ -1,330 +1,332 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>WhiteboardScanner</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>WhiteboardScanner</title>
 
-        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-        <link
-            rel="manifest"
-            href="manifest.json"
-            crossorigin="use-credentials"
-        />
+		<link
+			rel="manifest"
+			href="manifest.json"
+			crossorigin="use-credentials"
+		/>
 
-        <link rel="stylesheet/less" type="text/css" href="less/master.less" />
-        <link rel="stylesheet/less" type="text/css" href="less/styles.less" />
-        <script src="https://cdn.jsdelivr.net/npm/less"></script>
+		<link rel="stylesheet/less" type="text/css" href="less/master.less" />
+		<link rel="stylesheet/less" type="text/css" href="less/styles.less" />
+		<script src="https://cdn.jsdelivr.net/npm/less"></script>
 
-        <script
-            src="https://kit.fontawesome.com/452b801551.js"
-            crossorigin="anonymous"
-        ></script>
+		<script
+			src="https://kit.fontawesome.com/452b801551.js"
+			crossorigin="anonymous"
+		></script>
 
-        <script src="https://docs.opencv.org/4.7.0/opencv.js" async></script>
-        <!-- warning: loading OpenCV can take some time. Load asynchronously -->
-        <script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
-        <script src="js/WhiteboardScanner.js" defer></script>
-        <script src="js/PushShareScript.js"></script>
+		<script src="https://docs.opencv.org/4.7.0/opencv.js" async></script>
+		<!-- warning: loading OpenCV can take some time. Load asynchronously -->
+		<script src="https://cdn.jsdelivr.net/gh/ColonelParrot/jscanify@master/src/jscanify.min.js"></script>
+		<script src="js/WhiteboardScanner.js" defer></script>
+		<script src="js/PushShareScript.js"></script>
 
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-        />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
 
-        <link rel="apple-touch-icon" href="icons/apple-icon-180.png" />
+		<link rel="apple-touch-icon" href="icons/apple-icon-180.png" />
 
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-capable" content="yes" />
 
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2048-2732.jpg"
-            media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2732-2048.jpg"
-            media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1668-2388.jpg"
-            media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2388-1668.jpg"
-            media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1536-2048.jpg"
-            media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2048-1536.jpg"
-            media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1640-2360.jpg"
-            media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2360-1640.jpg"
-            media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1668-2224.jpg"
-            media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2224-1668.jpg"
-            media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1620-2160.jpg"
-            media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2160-1620.jpg"
-            media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1488-2266.jpg"
-            media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2266-1488.jpg"
-            media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1320-2868.jpg"
-            media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2868-1320.jpg"
-            media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1206-2622.jpg"
-            media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2622-1206.jpg"
-            media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1290-2796.jpg"
-            media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2796-1290.jpg"
-            media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1179-2556.jpg"
-            media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2556-1179.jpg"
-            media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1170-2532.jpg"
-            media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2532-1170.jpg"
-            media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1284-2778.jpg"
-            media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2778-1284.jpg"
-            media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1125-2436.jpg"
-            media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2436-1125.jpg"
-            media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1242-2688.jpg"
-            media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2688-1242.jpg"
-            media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-828-1792.jpg"
-            media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1792-828.jpg"
-            media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1242-2208.jpg"
-            media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-2208-1242.jpg"
-            media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-750-1334.jpg"
-            media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1334-750.jpg"
-            media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-640-1136.jpg"
-            media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-        />
-        <link
-            rel="apple-touch-startup-image"
-            href="icons/apple-splash-1136-640.jpg"
-            media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-        />
-    </head>
-    <body>
-        <article id="startPage">
-            <i class="fa-solid fa-photo-film" id="startIcon"></i>
-            <button id="osCameraBtn">
-                <i class="fa-solid fa-camera"></i>
-                OS-Kamera öffnen
-            </button>
-            <input
-                type="file"
-                id="osCameraInput"
-                capture="environment"
-                accept="image/*"
-                hidden
-            />
-            <button class="secondary" id="startPageUploadBtn">
-                <i class="fa-solid fa-upload" id="uploadBtn"></i>
-                Hochladen
-            </button>
-            <hr />
-            <button class="secondary" id="historyBtn">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                Verlauf
-            </button>
-            <input
-                type="file"
-                name="image-upload"
-                accept="image/*"
-                id="uploadInput"
-                hidden
-            />
-            <section id="pushShareSection">
-                <i class="fa-solid fa-users"></i>
-                <p>Push-Share Funktion aktivieren</p>
-                <input type="checkbox" id="pushSharingCheckbox" />
-                <section id="offline">
-                    <i class="fa-solid fa-globe"></i>
-                    <p>Offline</p>
-                </section>
-            </section>
-        </article>
-        <article id="editorPage">
-            <nav id="topBar">
-                <i class="fa-solid fa-arrows-up-down rotate" id="flipYBtn"></i>
-                <i class="fa-solid fa-arrows-up-down" id="flipXBtn"></i>
-                <div class="tileBox">
-                    <i class="ratioBtn tile" data-ratio-id="Auto">Auto</i>
-                    <i class="ratioBtn tile" data-ratio-id="1:1">1:1</i>
-                    <i class="ratioBtn tile" data-ratio-id="4:3">4:3</i>
-                    <i class="ratioBtn tile" data-ratio-id="16:9">16:9</i>
-                    <i class="ratioBtn tile" data-ratio-id="2:1">2:1</i>
-                    <i class="ratioBtn tile" data-ratio-id="A4">A4</i>
-                </div>
-                <i class="fa-solid fa-mobile rotate-90" id="landscapeBtn"></i>
-                <i class="fa-solid fa-mobile" id="portraitBtn"></i>
-                <i class="fa-solid fa-crop-simple" id="extractBtn"></i>
-                <i class="fa-solid fa-xmark closeBtn"></i>
-            </nav>
-            <div id="canvasContainer">
-                <canvas id="result"></canvas>
-                <canvas id="cornerPointCanvas"></canvas>
-            </div>
-        </article>
-        <article id="exportPage">
-            <nav id="topBar">
-                <i class="fa-solid fa-arrow-left" id="backBtn"></i>
-                <i class="fa-solid fa-users disabled" id="pushShareBtn"></i>
-                <i class="fa-solid fa-arrow-up-from-bracket" id="shareBtn"></i>
-                <i class="fa-solid fa-xmark closeBtn"></i>
-            </nav>
-            <div id="canvasContainer">
-                <canvas id="exportCanvas"></canvas>
-            </div>
-        </article>
-        <article id="pushSharePage">
-            <nav id="topBar">
-                <h2 id="pushShareIDText" style="color: white"></h2>
-                <i
-                    class="fa-solid fa-arrow-up-from-bracket"
-                    id="pushShareShareBtn"
-                    style="margin-left: auto"
-                ></i>
-                <i class="fa-solid fa-xmark" id="pushShareCloseBtn"></i>
-            </nav>
-            <div id="canvasContainer">
-                <canvas id="pushShareCanvas"></canvas>
-                <img id="pushShareImage" crossorigin="anonymous" />
-            </div>
-        </article>
-        <article id="galeryPage">
-            <nav className="topBar">
-                <button><i class="fa-solid fa-bars"></i></button>
-                <p>Galerie</p>
-                <button>Auswahl</button>
-            </nav>
-        </article>
-        <!-- <nav id="tabBar">
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2048-2732.jpg"
+			media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2732-2048.jpg"
+			media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1668-2388.jpg"
+			media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2388-1668.jpg"
+			media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1536-2048.jpg"
+			media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2048-1536.jpg"
+			media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1640-2360.jpg"
+			media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2360-1640.jpg"
+			media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1668-2224.jpg"
+			media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2224-1668.jpg"
+			media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1620-2160.jpg"
+			media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2160-1620.jpg"
+			media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1488-2266.jpg"
+			media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2266-1488.jpg"
+			media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1320-2868.jpg"
+			media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2868-1320.jpg"
+			media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1206-2622.jpg"
+			media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2622-1206.jpg"
+			media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1290-2796.jpg"
+			media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2796-1290.jpg"
+			media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1179-2556.jpg"
+			media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2556-1179.jpg"
+			media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1170-2532.jpg"
+			media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2532-1170.jpg"
+			media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1284-2778.jpg"
+			media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2778-1284.jpg"
+			media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1125-2436.jpg"
+			media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2436-1125.jpg"
+			media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1242-2688.jpg"
+			media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2688-1242.jpg"
+			media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-828-1792.jpg"
+			media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1792-828.jpg"
+			media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1242-2208.jpg"
+			media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-2208-1242.jpg"
+			media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-750-1334.jpg"
+			media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1334-750.jpg"
+			media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-640-1136.jpg"
+			media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+		/>
+		<link
+			rel="apple-touch-startup-image"
+			href="icons/apple-splash-1136-640.jpg"
+			media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
+		/>
+	</head>
+	<body>
+		<article id="startPage">
+			<i class="fa-solid fa-photo-film" id="startIcon"></i>
+			<button id="osCameraBtn">
+				<i class="fa-solid fa-camera"></i>
+				OS-Kamera öffnen
+			</button>
+			<input
+				type="file"
+				id="osCameraInput"
+				capture="environment"
+				accept="image/*"
+				hidden
+			/>
+			<button class="secondary" id="startPageUploadBtn">
+				<i class="fa-solid fa-upload" id="uploadBtn"></i>
+				Hochladen
+			</button>
+			<hr />
+			<button class="secondary" id="historyBtn">
+				<i class="fa-solid fa-clock-rotate-left"></i>
+				Verlauf
+			</button>
+			<input
+				type="file"
+				name="image-upload"
+				accept="image/*"
+				id="uploadInput"
+				hidden
+			/>
+			<section id="pushShareSection">
+				<i class="fa-solid fa-users"></i>
+				<p>Push-Share Funktion aktivieren</p>
+				<input type="checkbox" id="pushSharingCheckbox" />
+				<section id="offline">
+					<i class="fa-solid fa-globe"></i>
+					<p>Offline</p>
+				</section>
+			</section>
+		</article>
+		<article id="editorPage">
+			<nav id="topBar">
+				<i class="fa-solid fa-arrows-up-down rotate" id="flipYBtn"></i>
+				<i class="fa-solid fa-arrows-up-down" id="flipXBtn"></i>
+				<div class="tileBox">
+					<i class="ratioBtn tile" data-ratio-id="Auto">Auto</i>
+					<i class="ratioBtn tile" data-ratio-id="1:1">1:1</i>
+					<i class="ratioBtn tile" data-ratio-id="4:3">4:3</i>
+					<i class="ratioBtn tile" data-ratio-id="16:9">16:9</i>
+					<i class="ratioBtn tile" data-ratio-id="2:1">2:1</i>
+					<i class="ratioBtn tile" data-ratio-id="A4">A4</i>
+				</div>
+				<i class="fa-solid fa-mobile rotate-90" id="landscapeBtn"></i>
+				<i class="fa-solid fa-mobile" id="portraitBtn"></i>
+				<i class="fa-solid fa-crop-simple" id="extractBtn"></i>
+				<i class="fa-solid fa-xmark closeBtn"></i>
+			</nav>
+			<div id="canvasContainer">
+				<canvas id="result"></canvas>
+				<canvas id="cornerPointCanvas"></canvas>
+				<canvas id="cornerPointCircleCanvas"></canvas>
+				<canvas id="cornerZoomCanvas"></canvas>
+			</div>
+		</article>
+		<article id="exportPage">
+			<nav id="topBar">
+				<i class="fa-solid fa-arrow-left" id="backBtn"></i>
+				<i class="fa-solid fa-users disabled" id="pushShareBtn"></i>
+				<i class="fa-solid fa-arrow-up-from-bracket" id="shareBtn"></i>
+				<i class="fa-solid fa-xmark closeBtn"></i>
+			</nav>
+			<div id="canvasContainer">
+				<canvas id="exportCanvas"></canvas>
+			</div>
+		</article>
+		<article id="pushSharePage">
+			<nav id="topBar">
+				<h2 id="pushShareIDText" style="color: white"></h2>
+				<i
+					class="fa-solid fa-arrow-up-from-bracket"
+					id="pushShareShareBtn"
+					style="margin-left: auto"
+				></i>
+				<i class="fa-solid fa-xmark" id="pushShareCloseBtn"></i>
+			</nav>
+			<div id="canvasContainer">
+				<canvas id="pushShareCanvas"></canvas>
+				<img id="pushShareImage" crossorigin="anonymous" />
+			</div>
+		</article>
+		<article id="galeryPage">
+			<nav className="topBar">
+				<button><i class="fa-solid fa-bars"></i></button>
+				<p>Galerie</p>
+				<button>Auswahl</button>
+			</nav>
+		</article>
+		<!-- <nav id="tabBar">
             <div class="active">
                 <i class="fa-solid fa-camera"></i>
                 Kamera
@@ -338,150 +340,150 @@
                 Galerie
             </div>
         </nav> -->
-        <script>
-            window.subscription = null;
+		<script>
+			window.subscription = null;
 
-            const params = new URLSearchParams(window.location.search);
-            const pushShareID = params.get("pushShareID");
+			const params = new URLSearchParams(window.location.search);
+			const pushShareID = params.get("pushShareID");
 
-            if (pushShareID) {
-                console.log("Push Share ID:", pushShareID);
-                document.body.classList.add("showPushSharePage");
-                document.getElementById("pushShareIDText").innerText =
-                    pushShareID;
+			if (pushShareID) {
+				console.log("Push Share ID:", pushShareID);
+				document.body.classList.add("showPushSharePage");
+				document.getElementById("pushShareIDText").innerText =
+					pushShareID;
 
-                document.getElementById("pushShareImage").src = "";
-                document.getElementById(
-                    "pushShareImage"
-                ).src = `https://nas.zorrle001.dev/image/${encodeURIComponent(
-                    pushShareID
-                )}`;
+				document.getElementById("pushShareImage").src = "";
+				document.getElementById(
+					"pushShareImage"
+				).src = `https://nas.zorrle001.dev/image/${encodeURIComponent(
+					pushShareID
+				)}`;
 
-                // optional: Parameter entfernen aus der URL
-                params.delete("pushShareID");
-                history.replaceState(
-                    null,
-                    "",
-                    window.location.pathname + "?" + params.toString()
-                );
-            }
+				// optional: Parameter entfernen aus der URL
+				params.delete("pushShareID");
+				history.replaceState(
+					null,
+					"",
+					window.location.pathname + "?" + params.toString()
+				);
+			}
 
-            console.log(
-                "Initially " + (window.navigator.onLine ? "on" : "off") + "line"
-            );
+			console.log(
+				"Initially " + (window.navigator.onLine ? "on" : "off") + "line"
+			);
 
-            if (!window.navigator.onLine) {
-                window.addEventListener("DOMContentLoaded", function () {
-                    document.body.classList.add("offline");
-                    document
-                        .getElementById("historyBtn")
-                        .classList.add("disabled");
-                    document
-                        .getElementById("pushShareBtn")
-                        .classList.add("disabled");
-                });
-            }
+			if (!window.navigator.onLine) {
+				window.addEventListener("DOMContentLoaded", function () {
+					document.body.classList.add("offline");
+					document
+						.getElementById("historyBtn")
+						.classList.add("disabled");
+					document
+						.getElementById("pushShareBtn")
+						.classList.add("disabled");
+				});
+			}
 
-            window.addEventListener("online", () => {
-                console.log("Became online");
-                document.body.classList.remove("offline");
-                document
-                    .getElementById("historyBtn")
-                    .classList.remove("disabled");
-                document
-                    .getElementById("pushShareBtn")
-                    .classList.remove("disabled");
-            });
-            window.addEventListener("offline", () => {
-                console.log("Became offline");
-                document.body.classList.add("offline");
-                document.getElementById("historyBtn").classList.add("disabled");
-                document
-                    .getElementById("pushShareBtn")
-                    .classList.add("disabled");
-            });
+			window.addEventListener("online", () => {
+				console.log("Became online");
+				document.body.classList.remove("offline");
+				document
+					.getElementById("historyBtn")
+					.classList.remove("disabled");
+				document
+					.getElementById("pushShareBtn")
+					.classList.remove("disabled");
+			});
+			window.addEventListener("offline", () => {
+				console.log("Became offline");
+				document.body.classList.add("offline");
+				document.getElementById("historyBtn").classList.add("disabled");
+				document
+					.getElementById("pushShareBtn")
+					.classList.add("disabled");
+			});
 
-            const registerServiceWorker = async () => {
-                if ("serviceWorker" in navigator) {
-                    try {
-                        const registration =
-                            await navigator.serviceWorker.register("sw.js");
-                        if (registration.installing) {
-                            console.log("Service worker installing");
-                        } else if (registration.waiting) {
-                            console.log("Service worker installed");
-                        } else if (registration.active) {
-                            console.log("Service worker active");
-                        }
+			const registerServiceWorker = async () => {
+				if ("serviceWorker" in navigator) {
+					try {
+						const registration =
+							await navigator.serviceWorker.register("sw.js");
+						if (registration.installing) {
+							console.log("Service worker installing");
+						} else if (registration.waiting) {
+							console.log("Service worker installed");
+						} else if (registration.active) {
+							console.log("Service worker active");
+						}
 
-                        // SETUP Push Share Notification Subscription
-                        let subscription =
-                            await registration.pushManager.getSubscription();
+						// SETUP Push Share Notification Subscription
+						let subscription =
+							await registration.pushManager.getSubscription();
 
-                        if (subscription) {
-                            console.log(
-                                "Already subscribed to push notifications"
-                            );
-                        } else {
-                            const response = await fetch(
-                                "https://nas.zorrle001.dev/vapid_public_key"
-                            );
-                            const vapidPublicKey = await response.text();
-                            const convertedVapidKey =
-                                urlBase64ToUint8Array(vapidPublicKey);
-                            subscription =
-                                await registration.pushManager.subscribe({
-                                    userVisibleOnly: true,
-                                    applicationServerKey: convertedVapidKey,
-                                });
+						if (subscription) {
+							console.log(
+								"Already subscribed to push notifications"
+							);
+						} else {
+							const response = await fetch(
+								"https://nas.zorrle001.dev/vapid_public_key"
+							);
+							const vapidPublicKey = await response.text();
+							const convertedVapidKey =
+								urlBase64ToUint8Array(vapidPublicKey);
+							subscription =
+								await registration.pushManager.subscribe({
+									userVisibleOnly: true,
+									applicationServerKey: convertedVapidKey,
+								});
 
-                            console.log(
-                                "Subscribed to push notifications",
-                                subscription
-                            );
-                        }
+							console.log(
+								"Subscribed to push notifications",
+								subscription
+							);
+						}
 
-                        fetch("https://nas.zorrle001.dev/register", {
-                            method: "post",
-                            headers: {
-                                "Content-type": "application/json",
-                            },
-                            body: JSON.stringify({ subscription }),
-                        });
+						fetch("https://nas.zorrle001.dev/register", {
+							method: "post",
+							headers: {
+								"Content-type": "application/json",
+							},
+							body: JSON.stringify({ subscription }),
+						});
 
-                        window.subscription = subscription;
-                        console.log(
-                            "Push notification subscription registered"
-                        );
-                    } catch (error) {
-                        console.error(
-                            `Service worker Registration failed with ${error}`
-                        );
-                    }
-                }
+						window.subscription = subscription;
+						console.log(
+							"Push notification subscription registered"
+						);
+					} catch (error) {
+						console.error(
+							`Service worker Registration failed with ${error}`
+						);
+					}
+				}
 
-                loadPushShare();
-            };
-            registerServiceWorker();
+				loadPushShare();
+			};
+			registerServiceWorker();
 
-            function urlBase64ToUint8Array(base64String) {
-                // Add necessary padding for base64
-                const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-                const base64 = (base64String + padding)
-                    .replace(/-/g, "+") // Replace URL-safe `-` with `+`
-                    .replace(/_/g, "/"); // Replace URL-safe `_` with `/`
+			function urlBase64ToUint8Array(base64String) {
+				// Add necessary padding for base64
+				const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+				const base64 = (base64String + padding)
+					.replace(/-/g, "+") // Replace URL-safe `-` with `+`
+					.replace(/_/g, "/"); // Replace URL-safe `_` with `/`
 
-                // Decode base64 string using atob (browser method)
-                const binaryString = atob(base64);
+				// Decode base64 string using atob (browser method)
+				const binaryString = atob(base64);
 
-                // Create a Uint8Array from the binary string
-                const uint8Array = new Uint8Array(binaryString.length);
-                for (let i = 0; i < binaryString.length; i++) {
-                    uint8Array[i] = binaryString.charCodeAt(i);
-                }
+				// Create a Uint8Array from the binary string
+				const uint8Array = new Uint8Array(binaryString.length);
+				for (let i = 0; i < binaryString.length; i++) {
+					uint8Array[i] = binaryString.charCodeAt(i);
+				}
 
-                return uint8Array;
-            }
-        </script>
-    </body>
+				return uint8Array;
+			}
+		</script>
+	</body>
 </html>

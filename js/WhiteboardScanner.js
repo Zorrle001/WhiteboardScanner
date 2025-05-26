@@ -528,6 +528,7 @@ function drawCornerPointsFrame() {
         cornerPoints.topRightCorner.y
     ); // Draw a line to (150, 100)
     cornerPointCtx.stroke(); // Render the path
+	cornerPointCtx.closePath();
 
     // RIGHT LINE
     cornerPointCtx.beginPath(); // Start a new path
@@ -540,6 +541,7 @@ function drawCornerPointsFrame() {
         cornerPoints.bottomRightCorner.y
     ); // Draw a line to (150, 100)
     cornerPointCtx.stroke(); // Render the path
+	cornerPointCtx.closePath();
 
     // BOTTOM LINE
     cornerPointCtx.beginPath(); // Start a new path
@@ -552,6 +554,7 @@ function drawCornerPointsFrame() {
         cornerPoints.bottomLeftCorner.y
     ); // Draw a line to (150, 100)
     cornerPointCtx.stroke(); // Render the path
+	cornerPointCtx.closePath();
 
     // LEFT LINE
     cornerPointCtx.beginPath(); // Start a new path
@@ -564,6 +567,7 @@ function drawCornerPointsFrame() {
         cornerPoints.topLeftCorner.y
     ); // Draw a line to (150, 100)
     cornerPointCtx.stroke(); // Render the path
+	cornerPointCtx.closePath();
 
     cornerPointCtx.strokeStyle = "orange";
 
@@ -583,6 +587,7 @@ function drawCornerPointsFrame() {
         cornerPointCircleCtx.fillStyle = "rgba(255, 166, 0, 0.25)";
         cornerPointCircleCtx.fill();
         cornerPointCircleCtx.stroke();
+        cornerPointCircleCtx.closePath();
     }
 
     if (storedDraggedPoint) {

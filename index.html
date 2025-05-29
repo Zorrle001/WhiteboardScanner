@@ -5,6 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>WhiteboardScanner</title>
 
+		<meta name="recache" content="0" />
+
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />
 
 		<link
@@ -261,14 +263,7 @@
 			/>
 			<section id="pushShareSection">
 				<i class="fa-solid fa-users"></i>
-				<div>
-					<p>Push-Share Funktion aktivieren</p>
-					<input
-						type="text"
-						id="pushShareNameInput"
-						placeholder="[Unbekannt]"
-					/>
-				</div>
+				<p>Push-Share Funktion aktivieren</p>
 				<input type="checkbox" id="pushSharingCheckbox" />
 				<section id="offline">
 					<i class="fa-solid fa-globe"></i>
@@ -297,7 +292,9 @@
 				<canvas id="result"></canvas>
 				<canvas id="cornerPointCanvas"></canvas>
 				<canvas id="cornerPointCircleCanvas"></canvas>
-				<canvas id="cornerZoomCanvas"></canvas>
+				<div id="cornerZoomWrapper">
+					<canvas id="cornerZoomCanvas"></canvas>
+				</div>
 			</div>
 		</article>
 		<article id="exportPage">
@@ -325,6 +322,19 @@
 				<canvas id="pushShareCanvas"></canvas>
 				<img id="pushShareImage" crossorigin="anonymous" />
 			</div>
+		</article>
+		<article id="historyPage">
+			<nav id="topBar">
+				<i class="fa-solid fa-xmark closeBtn"></i>
+			</nav>
+			<h1>
+				<i class="fa-solid fa-clock-rotate-left"></i>
+				Verlauf
+			</h1>
+			<ul>
+				<li>Meine Scans</li>
+				<li>Push-Share Scans</li>
+			</ul>
 		</article>
 		<article id="galeryPage">
 			<nav className="topBar">
@@ -463,9 +473,7 @@
 							headers: {
 								"Content-type": "application/json",
 							},
-							body: JSON.stringify({
-								subscription,
-							}),
+							body: JSON.stringify({ subscription }),
 						});
 
 						window.subscription = subscription;

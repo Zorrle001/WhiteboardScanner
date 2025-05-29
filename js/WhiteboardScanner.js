@@ -232,6 +232,7 @@ document.getElementById("pushShareBtn").onclick = () => {
 			body: JSON.stringify({
 				subscription: window.subscription,
 				base64: base64,
+				name: window.pushShareName,
 			}),
 		});
 

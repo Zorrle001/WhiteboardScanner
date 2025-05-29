@@ -368,13 +368,27 @@
 		<script>
 			window.subscription = null;
 
-			window.pushShareName = localStorage.get("pushShareName");
+			document.getElementById("pushShareNameInput").value =
+				localStorage.getItem("pushShareName");
+			window.pushShareName = localStorage.getItem("pushShareName");
 			if (
 				window.pushShareName == undefined ||
 				window.pushShareName == ""
 			) {
 				window.pushShareName = null;
 			}
+
+			document.getElementById("pushShareNameInput").oninput = (e) => {
+				const value =
+					document.getElementById("pushShareNameInput").value;
+				let newValue = value;
+				if (value == undefined || value == "") {
+					newValue = null;
+				}
+
+				window.pushShareName = newValue;
+				localStorage.setItem("pushShareName", newValue ? newValue : "");
+			};
 
 			const params = new URLSearchParams(window.location.search);
 			const pushShareID = params.get("pushShareID");

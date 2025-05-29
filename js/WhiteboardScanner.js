@@ -240,6 +240,7 @@ document.getElementById("pushShareBtn").onclick = () => {
 				subscription: window.subscription,
 				base64: base64,
 				name: window.pushShareName,
+				ttl: 60 * 3,
 			}),
 		});
 

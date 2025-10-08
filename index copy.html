@@ -344,7 +344,7 @@
                 document.getElementById("pushShareImage").src = "";
                 document.getElementById(
                     "pushShareImage"
-                ).src = `https://nas.zorrle001.dev/image/${encodeURIComponent(
+                ).src = `https://api.whiteboardscanner.zorrle001.dev/image/${encodeURIComponent(
                     pushShareID
                 )}`;
 
@@ -405,7 +405,7 @@
                             );
                         } else {
                             const response = await fetch(
-                                "https://nas.zorrle001.dev/vapid_public_key"
+                                "https://api.whiteboardscanner.zorrle001.dev/vapid_public_key"
                             );
                             const vapidPublicKey = await response.text();
                             const convertedVapidKey =
@@ -422,13 +422,16 @@
                             );
                         }
 
-                        fetch("https://nas.zorrle001.dev/register", {
-                            method: "post",
-                            headers: {
-                                "Content-type": "application/json",
-                            },
-                            body: JSON.stringify({ subscription }),
-                        });
+                        fetch(
+                            "https://api.whiteboardscanner.zorrle001.dev/register",
+                            {
+                                method: "post",
+                                headers: {
+                                    "Content-type": "application/json",
+                                },
+                                body: JSON.stringify({ subscription }),
+                            }
+                        );
 
                         window.subscription = subscription;
                         console.log(

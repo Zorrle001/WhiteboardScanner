@@ -231,18 +231,21 @@ document.getElementById("pushShareBtn").onclick = () => {
             return;
         }
 
-        await fetch("https://nas.zorrle001.dev/global_push_share", {
-            method: "post",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-                subscription: window.subscription,
-                base64: base64,
-                name: window.pushShareName,
-                ttl: 60 * 3,
-            }),
-        });
+        await fetch(
+            "https://api.whiteboardscanner.zorrle001.dev/global_push_share",
+            {
+                method: "post",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    subscription: window.subscription,
+                    base64: base64,
+                    name: window.pushShareName,
+                    ttl: 60 * 3,
+                }),
+            }
+        );
 
         document.getElementById("pushShareBtn").classList.remove("disabled");
         document.getElementById("pushShareBtn").classList.remove("loading");
@@ -615,7 +618,9 @@ function checkCameraCapabilities() {
 }
 
 document.getElementById("historyBtn").onclick = () => {
-    fetch("https://nas.zorrle001.dev/last_global_push_share_file_name")
+    fetch(
+        "https://api.whiteboardscanner.zorrle001.dev/last_global_push_share_file_name"
+    )
         .catch((err) => {
             console.error("Error fetching last file name:", err);
             window.alert(
@@ -644,7 +649,7 @@ document.getElementById("historyBtn").onclick = () => {
             document.getElementById("pushShareImage").src = "";
             document.getElementById(
                 "pushShareImage"
-            ).src = `https://nas.zorrle001.dev/image/${encodeURIComponent(
+            ).src = `https://api.whiteboardscanner.zorrle001.dev/image/${encodeURIComponent(
                 pushShareID
             )}`;
         });

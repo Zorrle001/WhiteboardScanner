@@ -81,6 +81,7 @@ document.getElementById("portraitBtn").onclick = () => {
 
 for (const closeBtn of document.querySelectorAll(".closeBtn")) {
     closeBtn.onclick = () => {
+        console.log("CLOSE");
         document.body.classList.remove("showEditorPage");
         document.body.classList.remove("showExportPage");
         document.body.classList.remove("showCornerZoomCanvas");

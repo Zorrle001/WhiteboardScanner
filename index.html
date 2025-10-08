@@ -263,7 +263,15 @@
             />
             <section id="pushShareSection">
                 <i class="fa-solid fa-users"></i>
-                <p>Push-Share Funktion aktivieren</p>
+                <div>
+                    <p>Push-Share Funktion aktivieren</p>
+
+                    <input
+                        type="text"
+                        id="pushShareNameInput"
+                        placeholder="[Unbekannt]"
+                    />
+                </div>
                 <input type="checkbox" id="pushSharingCheckbox" />
                 <section id="offline">
                     <i class="fa-solid fa-globe"></i>
@@ -359,6 +367,28 @@
         </nav> -->
         <script>
             window.subscription = null;
+
+            document.getElementById("pushShareNameInput").value =
+                localStorage.getItem("pushShareName");
+            window.pushShareName = localStorage.getItem("pushShareName");
+            if (
+                window.pushShareName == undefined ||
+                window.pushShareName == ""
+            ) {
+                window.pushShareName = null;
+            }
+
+            document.getElementById("pushShareNameInput").oninput = (e) => {
+                const value =
+                    document.getElementById("pushShareNameInput").value;
+                let newValue = value;
+                if (value == undefined || value == "") {
+                    newValue = null;
+                }
+
+                window.pushShareName = newValue;
+                localStorage.setItem("pushShareName", newValue ? newValue : "");
+            };
 
             const params = new URLSearchParams(window.location.search);
             const pushShareID = params.get("pushShareID");

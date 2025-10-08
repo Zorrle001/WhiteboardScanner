@@ -81,7 +81,6 @@ document.getElementById("portraitBtn").onclick = () => {
 
 for (const closeBtn of document.querySelectorAll(".closeBtn")) {
     closeBtn.onclick = () => {
-        console.log("CLOSE");
         document.body.classList.remove("showEditorPage");
         document.body.classList.remove("showExportPage");
         document.body.classList.remove("showCornerZoomCanvas");
@@ -240,6 +239,8 @@ document.getElementById("pushShareBtn").onclick = () => {
             body: JSON.stringify({
                 subscription: window.subscription,
                 base64: base64,
+                name: window.pushShareName,
+                ttl: 60 * 3,
             }),
         });
 
@@ -529,6 +530,7 @@ function drawCornerPointsFrame() {
         cornerPoints.topRightCorner.y
     ); // Draw a line to (150, 100)
     cornerPointCtx.stroke(); // Render the path
+    cornerPointCtx.closePath();
 
     // RIGHT LINE
     cornerPointCtx.beginPath(); // Start a new path
@@ -541,6 +543,7 @@ function drawCornerPointsFrame() {
         cornerPoints.bottomRightCorner.y
     ); // Draw a line to (150, 100)
     cornerPointCtx.stroke(); // Render the path
+    cornerPointCtx.closePath();
 
     // BOTTOM LINE
     cornerPointCtx.beginPath(); // Start a new path
@@ -553,6 +556,7 @@ function drawCornerPointsFrame() {
         cornerPoints.bottomLeftCorner.y
     ); // Draw a line to (150, 100)
     cornerPointCtx.stroke(); // Render the path
+    cornerPointCtx.closePath();
 
     // LEFT LINE
     cornerPointCtx.beginPath(); // Start a new path
@@ -565,6 +569,7 @@ function drawCornerPointsFrame() {
         cornerPoints.topLeftCorner.y
     ); // Draw a line to (150, 100)
     cornerPointCtx.stroke(); // Render the path
+    cornerPointCtx.closePath();
 
     cornerPointCtx.strokeStyle = "orange";
 
@@ -584,6 +589,7 @@ function drawCornerPointsFrame() {
         cornerPointCircleCtx.fillStyle = "rgba(255, 166, 0, 0.25)";
         cornerPointCircleCtx.fill();
         cornerPointCircleCtx.stroke();
+        cornerPointCircleCtx.closePath();
     }
 
     if (storedDraggedPoint) {

@@ -476,7 +476,10 @@ html body {
                 //background-color: blue !important;
 
                 grid-template-columns: 1fr;
-                grid-template-rows: fit-content 1fr;
+                grid-template-rows: max-content max-content;
+
+                //height: fit-content;
+                overflow-y: auto;
             }
             .left,
             .right {
@@ -523,6 +526,8 @@ html body {
 
                     transition: background 0.2s ease-in-out;
 
+                    flex-shrink: 0;
+
                     &:hover {
                         background-color: darken(orange, 10%);
                     }
@@ -549,7 +554,7 @@ html body {
                 ul {
                     width: min(25rem, 100%);
                     // 41px: height of h3
-                    max-height: calc(100vh - 5rem - 0.75rem - 41px - 3rem);
+                    //max-height: calc(100vh - 5rem - 0.75rem - 41px - 3rem);
                     list-style: none;
 
                     display: flex;

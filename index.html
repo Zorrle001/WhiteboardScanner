@@ -231,7 +231,7 @@
             media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
         />
     </head>
-    <body class="showSendToDevicePage">
+    <body>
         <article id="startPage">
             <i class="fa-solid fa-photo-film" id="startIcon"></i>
             <button id="osCameraBtn">
@@ -349,26 +349,33 @@
             </nav>
             <section class="left">
                 <i class="fa-solid fa-satellite-dish" id="startIcon"></i>
-                <button id="osCameraBtn">
+                <button id="sendToDeviceOSCameraBtn">
                     <i class="fa-solid fa-camera"></i>
                     OS-Kamera öffnen
                 </button>
+                <button class="secondary" id="sendToDeviceUploadBtn">
+                    <i class="fa-solid fa-upload" id="uploadBtn"></i>
+                    Hochladen
+                </button>
                 <input
                     type="file"
-                    id="osCameraInput"
+                    id="sendToDeviceOSCameraInput"
                     capture="environment"
                     accept="image/*"
                     hidden
                 />
-                <button class="secondary" id="startPageUploadBtn">
-                    <i class="fa-solid fa-upload" id="uploadBtn"></i>
-                    Hochladen
-                </button>
+                <input
+                    type="file"
+                    name="image-upload"
+                    accept="image/*"
+                    id="sendToDeviceUploadInput"
+                    hidden
+                />
             </section>
             <section class="right">
                 <h3>Geräte</h3>
-                <ul>
-                    <li>
+                <ul id="sendToDeviceList">
+                    <!-- <li>
                         <input type="checkbox" />
                         <i class="fa-solid fa-check"></i>
                         iPad von Simon
@@ -412,7 +419,7 @@
                         <input type="checkbox" />
                         <i class="fa-solid fa-check"></i>
                         iPad von PhiMai
-                    </li>
+                    </li> -->
                 </ul>
             </section>
         </article>

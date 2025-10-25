@@ -658,4 +658,125 @@ document.getElementById("historyBtn").onclick = () => {
 
 document.getElementById("sendToDeviceBtn").onclick = () => {
     document.body.classList.add("showSendToDevicePage");
+    loadSendToDevicePage();
 };
+
+document.getElementById("sendToDeviceOSCameraBtn").onclick = () => {
+    document.getElementById("sendToDeviceOSCameraInput").click();
+};
+
+document.getElementById("sendToDeviceUploadBtn").onclick = () => {
+    document.getElementById("sendToDeviceUploadInput").click();
+};
+
+document.getElementById("sendToDeviceUploadInput").onchange =
+    sendToDeviceUploadFnc;
+document.getElementById("sendToDeviceOSCameraInput").onchange =
+    sendToDeviceUploadFnc;
+
+async function loadSendToDevicePage() {
+    const sendToDeviceList = document.getElementById("sendToDeviceList");
+    sendToDeviceList.innerHTML = "";
+
+    const ActiveSubscriptionOverviewObjs = await (
+        await fetch(
+            "https://api.whiteboardscanner.zorrle001.dev/get_active_subscription_overview",
+            {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            }
+        ).catch((err) => {
+            console.error("Error fetching active subscription names:", err);
+        })
+    ).json();
+
+    if (ActiveSubscriptionOverviewObjs == undefined) return;
+
+    for (const overviewObj of ActiveSubscriptionOverviewObjs) {
+        console.log("NAME", overviewObj);
+
+        const liEl = document.createElement("li");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.dataset.id = overviewObj.id;
+
+        const icon = document.createElement("i");
+        icon.className = "fa-solid fa-check";
+
+        const nameNode = document.createTextNode(
+            overviewObj.name ?? "[Unbekannt]"
+        );
+
+        liEl.appendChild(checkbox);
+        liEl.appendChild(icon);
+        liEl.appendChild(nameNode);
+
+        sendToDeviceList.appendChild(liEl);
+    }
+}
+
+function sendToDeviceUploadFnc(e) {
+    if (!window.subscription) {
+        alert(
+            "WhiteboardScanner\n\nFehler: Subscription existiert nicht! Bitte Push Sharing aktivieren."
+        );
+        return;
+    }
+
+    console.log("SEND TO DEVICE UPLOAD", e.target.files[0]);
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+        //console.log("READER RESULT", reader.result);
+        const img = new Image();
+        img.src = reader.result;
+        img.onload = async () => {
+            /* const context = result.getContext("2d");
+            result.width = img.width;
+            result.height = img.height;
+            context.drawImage(img, 0, 0, img.width, img.height);
+
+            document.body.classList.add("showEditorPage");
+
+            startEditorFunctions(); */
+
+            var canvas = document.createElement("CANVAS");
+            var ctx = canvas.getContext("2d");
+            var base64;
+            canvas.height = img.naturalHeight;
+            canvas.width = img.naturalWidth;
+            ctx.drawImage(img, 0, 0);
+            base64 = canvas.toDataURL("image/png", 1);
+            console.log("DATA URL", base64);
+
+            e.target.value = "";
+
+            const deviceIDs = [
+                ...document.querySelectorAll(
+                    "#sendToDeviceList li input[type='checkbox']:checked"
+                ),
+            ].map((el) => el.dataset.id);
+
+            await fetch(
+                "https://api.whiteboardscanner.zorrle001.dev/send_to_device",
+                {
+                    method: "post",
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        subscription: window.subscription,
+                        base64: base64,
+                        name: window.pushShareName,
+                        devices: deviceIDs,
+                        ttl: 60 * 3,
+                    }),
+                }
+            );
+            console.log("SENT TO DEVICE");
+        };
+    };
+    reader.readAsDataURL(file);
+}

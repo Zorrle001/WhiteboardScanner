@@ -84,6 +84,7 @@ for (const closeBtn of document.querySelectorAll(".closeBtn")) {
         document.body.classList.remove("showEditorPage");
         document.body.classList.remove("showExportPage");
         document.body.classList.remove("showCornerZoomCanvas");
+        document.body.classList.remove("showSendToDevicePage");
 
         const cornerZoomWrapper = document.getElementById("cornerZoomWrapper");
         cornerZoomWrapper.style.setProperty("top", "-100vw");
@@ -653,4 +654,8 @@ document.getElementById("historyBtn").onclick = () => {
                 pushShareID
             )}`;
         });
+};
+
+document.getElementById("sendToDeviceBtn").onclick = () => {
+    document.body.classList.add("showSendToDevicePage");
 };

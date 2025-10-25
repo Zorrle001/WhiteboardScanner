@@ -231,7 +231,7 @@
             media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
         />
     </head>
-    <body>
+    <body class="showSendToDevicePage">
         <article id="startPage">
             <i class="fa-solid fa-photo-film" id="startIcon"></i>
             <button id="osCameraBtn">
@@ -254,8 +254,8 @@
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 Verlauf
             </button>
-             <button class="secondary" id="sendToDeviceBtn">
-                <i class="fa-solid fa-satellite-dish"></i>
+            <button class="secondary" id="sendToDeviceBtn">
+                <i class="fa-solid fa-satellite-dish closeBtn"></i>
                 An Gerät senden
             </button>
             <input
@@ -334,6 +334,87 @@
                 <canvas id="pushShareCanvas"></canvas>
                 <img id="pushShareImage" crossorigin="anonymous" />
             </div>
+        </article>
+        <article id="sendToDevicePage">
+            <nav id="topBar">
+                <h2 style="color: white">
+                    <i class="fa-solid fa-satellite-dish closeBtn"></i>
+                    An Gerät senden
+                </h2>
+                <i
+                    class="fa-solid fa-xmark closeBtn"
+                    id="sendToDeviceCloseBtn"
+                    style="margin-left: auto"
+                ></i>
+            </nav>
+            <section class="left">
+                <i class="fa-solid fa-satellite-dish" id="startIcon"></i>
+                <button id="osCameraBtn">
+                    <i class="fa-solid fa-camera"></i>
+                    OS-Kamera öffnen
+                </button>
+                <input
+                    type="file"
+                    id="osCameraInput"
+                    capture="environment"
+                    accept="image/*"
+                    hidden
+                />
+                <button class="secondary" id="startPageUploadBtn">
+                    <i class="fa-solid fa-upload" id="uploadBtn"></i>
+                    Hochladen
+                </button>
+            </section>
+            <section class="right">
+                <h3>Geräte</h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        iPad von Simon
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        A33 von Simon
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        iPad von PhiMai
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        iPad von Simon
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        A33 von Simon
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        iPad von PhiMai
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        iPad von Simon
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        A33 von Simon
+                    </li>
+                    <li>
+                        <input type="checkbox" />
+                        <i class="fa-solid fa-check"></i>
+                        iPad von PhiMai
+                    </li>
+                </ul>
+            </section>
         </article>
         <article id="historyPage">
             <nav id="topBar">

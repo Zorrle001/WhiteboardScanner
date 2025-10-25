@@ -678,6 +678,13 @@ async function loadSendToDevicePage() {
     const sendToDeviceList = document.getElementById("sendToDeviceList");
     sendToDeviceList.innerHTML = "";
 
+    if (!window.subscription) {
+        alert(
+            "WhiteboardScanner\n\nFehler: Subscription existiert nicht! Bitte Push Sharing aktivieren."
+        );
+        return;
+    }
+
     const ActiveSubscriptionOverviewObjs = await (
         await fetch(
             "https://api.whiteboardscanner.zorrle001.dev/get_active_subscription_overview",
@@ -693,7 +700,11 @@ async function loadSendToDevicePage() {
 
     if (ActiveSubscriptionOverviewObjs == undefined) return;
 
+    const id = await sha256Base64(window.subscription.endpoint);
+
     for (const overviewObj of ActiveSubscriptionOverviewObjs) {
+        if (overviewObj.id === id) continue; // Skip own device
+
         console.log("NAME", overviewObj);
 
         const liEl = document.createElement("li");
@@ -779,4 +790,13 @@ function sendToDeviceUploadFnc(e) {
         };
     };
     reader.readAsDataURL(file);
+}
+
+async function sha256Base64(str) {
+    const data = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+    const bytes = new Uint8Array(hash);
+    let bin = "";
+    for (const b of bytes) bin += String.fromCharCode(b);
+    return btoa(bin); // standard Base64 with padding
 }

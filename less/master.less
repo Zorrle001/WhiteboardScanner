@@ -8,13 +8,15 @@
     -webkit-user-select: none;
 }
 
-html,
-body {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
+html {
     height: 100%;
+    height: 100svh; /* small viewport height - berücksichtigt Tastatur */
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
 
     font-family: "Fira Sans Condensed", "Arial", sans-serif;
 }

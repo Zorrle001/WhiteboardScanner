@@ -2,7 +2,10 @@
 <html lang="de">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0 , viewport-fit=cover"
+        />
         <title>WhiteboardScanner</title>
 
         <meta name="recache" content="0" />
@@ -481,16 +484,13 @@
                 window.pushShareName = newValue;
                 localStorage.setItem("pushShareName", newValue ? newValue : "");
 
-                fetch(
-                    "https://api.whiteboardscanner.zorrle001.dev/rename",
-                    {
-                        method: "post",
-                        headers: {
-                            "Content-type": "application/json",
-                        },
-                        body: JSON.stringify({ subscription, name: newValue }),
-                    }
-                );
+                fetch("https://api.whiteboardscanner.zorrle001.dev/rename", {
+                    method: "post",
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                    body: JSON.stringify({ subscription, name: newValue }),
+                });
             };
 
             const params = new URLSearchParams(window.location.search);
@@ -600,7 +600,10 @@
                                 headers: {
                                     "Content-type": "application/json",
                                 },
-                                body: JSON.stringify({ subscription, name: window.pushShareName }),
+                                body: JSON.stringify({
+                                    subscription,
+                                    name: window.pushShareName,
+                                }),
                             }
                         );
 
@@ -637,6 +640,16 @@
 
                 return uint8Array;
             }
+
+            document
+                .getElementById("pushShareNameInput")
+                .addEventListener("blur", () => {
+                    setTimeout(() => {
+                        window.scrollTo(0, 0);
+                        document.documentElement.scrollTop = 0;
+                        document.body.scrollTop = 0;
+                    }, 0);
+                });
         </script>
     </body>
 </html>

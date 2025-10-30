@@ -656,9 +656,11 @@ document.getElementById("historyBtn").onclick = () => {
         });
 };
 
-document.getElementById("sendToDeviceBtn").onclick = () => {
+document.getElementById("sendToDeviceBtn").onclick = async () => {
     document.body.classList.add("showSendToDevicePage");
-    loadSendToDevicePage();
+    loadSendToDevicePage().catch(() => {
+        document.body.classList.remove("showSendToDevicePage");
+    });
 };
 
 document.getElementById("sendToDeviceOSCameraBtn").onclick = () => {
@@ -676,14 +678,17 @@ document.getElementById("sendToDeviceOSCameraInput").onchange =
 
 async function loadSendToDevicePage() {
     const sendToDeviceList = document.getElementById("sendToDeviceList");
-    sendToDeviceList.innerHTML = "";
 
     if (!window.subscription) {
         alert(
             "WhiteboardScanner\n\nFehler: Subscription existiert nicht! Bitte Push Sharing aktivieren."
         );
-        return;
+        sendToDeviceList.innerHTML = "PUSH SHARE NICHT AKTIVIERT";
+        throw new Error("No subscription");
+        return false;
     }
+
+    sendToDeviceList.innerHTML = "Wird geladen...";
 
     const ActiveSubscriptionOverviewObjs = await (
         await fetch(
@@ -702,6 +707,7 @@ async function loadSendToDevicePage() {
 
     const id = await sha256Base64(window.subscription.endpoint);
 
+    sendToDeviceList.innerHTML = "";
     for (const overviewObj of ActiveSubscriptionOverviewObjs) {
         if (overviewObj.id === id) continue; // Skip own device
 

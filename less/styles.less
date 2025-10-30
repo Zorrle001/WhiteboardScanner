@@ -366,7 +366,8 @@ html body {
 
                 overflow-y: auto;
 
-                > i {
+                > i,
+                .tileBox i {
                     position: relative;
                     width: 3rem;
                     height: 3rem;
@@ -487,7 +488,7 @@ html body {
                 width: 100%;
                 max-height: 100%;
                 overflow: hidden;
-                height: fit-content;
+                height: min(fit-content, 100%); // BUG IN SAFARI! - min fixes it
 
                 display: flex;
                 flex-direction: column;
